@@ -1,0 +1,19 @@
+<h1>Documentación</h1>
+
+<form id="documentUploadForm" enctype="multipart/form-data">
+    <div>
+        <label for="identificacion">Documento de Identificación:</label>
+        <input type="file" id="identificacion" name="document" accept=".pdf,.jpg,.jpeg,.png" required>
+    </div>
+    <div>
+        <label for="comprobanteDomicilio">Comprobante de Domicilio:</label>
+        <input type="file" id="comprobanteDomicilio" name="document" accept=".pdf,.jpg,.jpeg,.png" required>
+    </div>
+    <div>
+        <label for="comprobanteCuenta">Comprobante de Estado de Cuenta:</label>
+        <input type="file" id="comprobanteCuenta" name="document" accept=".pdf,.jpg,.jpeg,.png" required>
+    </div>
+    <button type="submit">Subir Documentos</button>
+</form>
+
+<script src="/public/js/cargaDocumentos.js"></script>

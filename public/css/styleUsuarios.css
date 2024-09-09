@@ -1,0 +1,83 @@
+/* General */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+    padding: 20px;
+}
+
+/* Header */
+h1 {
+    text-align: center;
+    color: #333;
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+/* Button */
+
+button#admin,
+button#usuariosInactivos {
+    display: block;
+    width: auto;
+    margin: 0 0 20px 0; /* Alinea a la izquierda y agrega margen inferior */
+    padding: 10px 20px;
+    font-size: 1em;
+    color: #fff;
+    background-color: #00a1e4;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button#usuariosInactivos:hover {
+    background-color: #007bb3;
+}
+
+/* User Container */
+#usuarios-container {
+    margin-top: 20px; /* Espacio entre el botón y el contenedor */
+}
+
+#usuarios-container div {
+    background-color: #fff;
+    padding: 15px;
+    margin-bottom: 20px; /* Espacio entre cada usuario */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* User Info */
+#usuarios-container div p {
+    margin: 5px 0;
+    color: #555;
+}
+
+#usuarios-container div p:first-child {
+    font-weight: bold;
+    color: #333;
+}
+
+/* Connection Status */
+.active {
+    border-left: 5px solid #4CAF50; /* Verde claro para activo */
+    background-color: #e8f5e9; /* Fondo verde claro */
+}
+
+.inactive {
+    border-left: 5px solid #f44336; /* Rojo para inactivo */
+    background-color: #ffebee; /* Fondo rojo claro */
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    button#usuariosInactivos {
+        width: 100%; /* Ocupa todo el ancho en pantallas pequeñas */
+        text-align: center; /* Centra el texto en pantallas pequeñas */
+    }
+
+    #usuarios-container div {
+        margin-bottom: 15px; /* Reduce el margen en pantallas pequeñas */
+    }
+}

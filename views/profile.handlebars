@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Perfil</title>
+     <link rel="stylesheet" href="/public/css/styleCarts.css">
+     <link rel="stylesheet" href="/public/css/styleProfile.css">
+    <link rel="stylesheet" href="/public/css/styleChat.css"> <!-- Enlace al CSS del chat -->
+    <link rel="stylesheet" href="/public/css/styleProducto.css"> <!-- Enlace al CSS de productos -->
+</head>
+<body>
+    <!-- Encabezado -->
+    <header>
+        <div class="header-actions">
+        <button id="toggleProfile" aria-expanded="false">👤</button>
+         <div class="buttonProducto" id="buttonNewProducto"></div>
+        </div>
+    </header>
+
+    <!-- Overlay para el perfil -->
+    <div id="overlay"></div>
+    
+
+    <!-- Contenido Principal -->
+    <main>
+        <!-- Información del Perfil -->
+        <section class="profile-info" id="profileInfo">
+            
+            <ul>   
+              <div class="profile-image">
+        <!-- Imagen de perfil -->
+              <h1>
+                <img id="profilePicture" src="public\images\profile.jpg" alt="Imagen de perfil" />
+               </h1>
+             </div>
+              
+                <li>Nombre: <span id="spanNombre"></span></li>
+                <li>Apellido: <span id="spanApellido"></span></li>
+                <li>Correo electrónico: <span id="spanEmail"></span></li>
+                <li>Rol: <span id="spanRol"></span></li>
+            </ul>
+            <div class="profile-buttons">
+                <button onclick="window.location.href='/edit'">Editar mis datos</button>
+                <button id="btnPremium">Hacerme Premium</button>
+                <button id= "documentos">cargar credenciales</button>
+                <button id="logout">Cerrar sesión</button>
+            </div>
+        </section>
+        <!-- Información del Carrito -->
+        <section class="cart-info"  id="cartInfo">
+          
+            <div id="productos-carrito"></div>
+        </section>
+
+        <!-- Contenido de Productos -->
+           <div id="premium-content">
+            <div id="productos-container"></div>
+        </div>
+        
+    </main>
+
+    <!-- Chat -->
+     <button id="toggleCarts" aria-expanded="false">🛒</button>
+    <button id="chat-toggle">💬</button>
+    <div class="chat-container" id="chat-container">
+        <div class="chat-header" id="chat-header">Chat</div>
+        <div class="chat-messages" id="chat-messages"></div>
+        <div class="chat-input">
+            <input type="text" id="mensaje" placeholder="Escribe un mensaje...">
+            <button onclick="enviarMensaje()">Enviar</button>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/public/js/profile.js"></script>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/public/js/chat.js"></script>
+    <script src="/public/js/productos.js"></script>
+</body>
+</html>

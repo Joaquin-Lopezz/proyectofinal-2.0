@@ -1,0 +1,99 @@
+/* Estilos generales del cuerpo */
+body {
+    font-family: Arial, sans-serif; /* Establece la fuente para el cuerpo del documento */
+    margin: 0; /* Elimina el margen predeterminado del cuerpo */
+    padding: 0; /* Elimina el relleno predeterminado del cuerpo */
+    box-sizing: border-box; /* Incluye el borde y el relleno en el ancho y alto de los elementos */
+}
+
+/* Estilos para el contenedor del chat */
+.chat-container {
+    position: fixed; /* Posiciona el contenedor de manera fija en la ventana */
+    bottom: 0px; /* Coloca el contenedor en la parte inferior de la ventana */
+    right: 100px; /* Coloca el contenedor a 100px desde el borde derecho de la ventana */
+    width: 400px; /* Ancho del contenedor de chat */
+    height: 400px; /* Alto del contenedor de chat */
+    border: 1px solid #ccc; /* Borde gris claro alrededor del contenedor */
+    background: #fff; /* Fondo blanco del contenedor */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra sutil alrededor del contenedor */
+    display: flex; /* Usa el modelo de caja flexible para organizar el contenido */
+    flex-direction: column; /* Organiza los hijos en una columna */
+    border-radius: 10px; /* Bordes redondeados del contenedor */
+    overflow: hidden; /* Oculta cualquier contenido que desborde el contenedor */
+    z-index: 1000; /* Asegura que el contenedor esté por encima de otros elementos */
+    transform: translateY(100%); /* Inicialmente oculta el contenedor fuera de la vista */
+    transition: transform 0.3s ease-in-out; /* Añade una transición suave para el movimiento vertical */
+}
+
+.chat-container.open {
+    transform: translateY(0); /* Muestra el contenedor moviéndolo a su posición original */
+}
+
+/* Estilos para el encabezado del chat */
+.chat-header {
+    background: #0078FF; /* Fondo azul del encabezado */
+    color: white; /* Texto blanco en el encabezado */
+    padding: 10px; /* Espacio interno alrededor del texto del encabezado */
+    text-align: center; /* Centra el texto en el encabezado */
+    font-weight: bold; /* Texto en negrita */
+    cursor: pointer; /* Cambia el cursor a una mano cuando se pasa sobre el encabezado */
+    border-top-left-radius: 10px; /* Redondea la esquina superior izquierda del encabezado */
+    border-top-right-radius: 10px; /* Redondea la esquina superior derecha del encabezado */
+}
+
+/* Estilos para el área de mensajes del chat */
+.chat-messages {
+    flex: 1; /* Permite que el área de mensajes se expanda para llenar el espacio disponible */
+    padding: 10px; /* Espacio interno alrededor de los mensajes */
+    overflow-y: auto; /* Habilita el desplazamiento vertical si hay más mensajes de los que se muestran */
+    max-height: 300px; /* Altura máxima del área de mensajes */
+}
+
+/* Estilos para la entrada de texto del chat */
+.chat-input {
+    border-top: 1px solid #ccc; /* Borde superior gris claro */
+    display: flex; /* Usa el modelo de caja flexible para organizar el contenido */
+}
+
+/* Estilos para el campo de entrada de texto en el chat */
+.chat-input input {
+    flex: 1; /* Permite que el campo de entrada se expanda para llenar el espacio disponible */
+    padding: 10px; /* Espacio interno alrededor del texto en el campo de entrada */
+    border: none; /* Elimina el borde predeterminado del campo de entrada */
+    outline: none; /* Elimina el contorno predeterminado del campo de entrada al hacer foco */
+    border-bottom-left-radius: 10px; /* Redondea la esquina inferior izquierda del campo de entrada */
+}
+
+/* Estilos para el botón de enviar en el chat */
+.chat-input button {
+    padding: 10px; /* Espacio interno alrededor del texto en el botón */
+    background: #0078FF; /* Fondo azul del botón */
+    color: white; /* Texto blanco en el botón */
+    border: none; /* Elimina el borde predeterminado del botón */
+    cursor: pointer; /* Cambia el cursor a una mano cuando se pasa sobre el botón */
+    border-bottom-right-radius: 10px; /* Redondea la esquina inferior derecha del botón */
+}
+
+.chat-input button:hover {
+    background: #005bb5; /* Cambia el fondo del botón a un azul más oscuro cuando se pasa el cursor sobre él */
+}
+
+/* Estilos para el ícono de toggling del chat */
+#chat-toggle {
+    position: fixed; /* Posiciona el ícono de manera fija en la ventana */
+    bottom: 20px; /* Coloca el ícono a 20px desde el borde inferior de la ventana */
+    right: 20px; /* Coloca el ícono a 20px desde el borde derecho de la ventana */
+    background: #0078FF; /* Fondo azul del ícono */
+    color: white; /* Texto blanco en el ícono */
+    border: none; /* Elimina el borde predeterminado del ícono */
+    border-radius: 50%; /* Hace que el ícono sea circular */
+    width: 50px; /* Ancho del ícono */
+    height: 50px; /* Alto del ícono */
+    cursor: pointer; /* Cambia el cursor a una mano cuando se pasa sobre el ícono */
+    font-size: 20px; /* Tamaño de fuente del ícono */
+    display: flex; /* Usa el modelo de caja flexible para centrar el contenido dentro del ícono */
+    align-items: center; /* Alinea verticalmente el contenido dentro del ícono */
+    justify-content: center; /* Centra horizontalmente el contenido dentro del ícono */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra sutil alrededor del ícono */
+    z-index: 1000; /* Asegura que el ícono esté por encima de otros elementos */
+}

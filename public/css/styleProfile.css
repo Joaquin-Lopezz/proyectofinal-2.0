@@ -1,0 +1,141 @@
+/* General Styles */
+.profile-image img {
+    width: 100px; /* Ajusta el ancho según tus necesidades */
+    height: 100px; /* Ajusta la altura según tus necesidades */
+    border-radius: 50%; /* Hace la imagen redonda */
+    object-fit: cover; /* Asegura que la imagen cubra el contenedor */
+}
+/* Ajustes para .profile-info */
+.profile-info {
+    background: #fff; /* Fondo blanco para el contenedor de perfil. */
+    padding: 15px; /* Reduce el relleno interno alrededor del contenido. */
+    border-radius: 6px; /* Redondea las esquinas del contenedor. */
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1); /* Sombra más sutil alrededor del contenedor. */
+    max-width: 700px; /* Limita el ancho máximo del contenedor. */
+    margin: 15px auto; /* Centra el contenedor horizontalmente y agrega un margen superior e inferior. */
+    display: none; /* Oculta la información por defecto. */
+    position: fixed; /* Fija la posición del contenedor. */
+    left: -100%; /* Inicialmente coloca el perfil fuera de la vista hacia la izquierda. */
+    transition: left 0.5s ease; /* Transición suave para la propiedad 'left'. */
+    z-index: 1000; /* Asegúrate de que esté por encima del overlay. */
+}
+
+.profile-info.open {
+    display: block; /* Asegúrate de que el perfil esté visible. */
+    left: 0; /* Mueve el perfil a la vista. */
+}
+
+.profile-info h1 {
+    margin-bottom: 1px; /* Reduce el margen inferior para separar el título del contenido siguiente. */
+    color: #333; /* Color oscuro para el título. */
+    font-size: 22px; /* Tamaño de fuente para el título. */
+}
+
+.profile-info ul {
+    list-style: none; /* Elimina los puntos de lista predeterminados. */
+    padding: 0; /* Elimina el relleno predeterminado de la lista. */
+    margin-bottom: 10px; 
+}
+
+.profile-info li {
+    margin-bottom: 0px; /* Reduce el margen inferior entre los elementos de la lista. */
+    font-size: 14px; /* Tamaño de fuente para los elementos de la lista. */
+}
+
+.profile-buttons {
+    margin-top: 15px; /* Reduce el margen superior para separar los botones del contenido superior. */
+}
+
+.profile-buttons button {
+    background: #1877F2; /* Fondo azul para los botones del perfil. */
+    color: #fff; /* Color del texto en blanco. */
+    border: none; /* Elimina el borde predeterminado del botón. */
+    padding: 8px 16px; /* Reduce el relleno interno alrededor del botón. */
+    border-radius: 4px; /* Redondea las esquinas del botón. */
+    cursor: pointer; /* Cambia el cursor a una mano al pasar sobre el botón. */
+    margin-right: 8px; /* Reduce el margen derecho para separar los botones entre sí. */
+    font-size: 14px; /* Tamaño de fuente para los botones. */
+}
+
+.profile-buttons button:hover {
+    background: #155CDA; /* Cambia el color de fondo cuando el botón es hovered. */
+}
+body {
+    font-family: Arial, sans-serif; /* Define la fuente principal para el texto del cuerpo de la página. */
+    line-height: 1.6; /* Establece la altura de línea para mejorar la legibilidad del texto. */
+    margin: 0; /* Elimina los márgenes predeterminados del cuerpo del documento. */
+    padding: 0; /* Elimina el relleno predeterminado del cuerpo del documento. */
+    background-color: #ededed; /* Establece un color de fondo gris claro para toda la página. */
+}
+
+/* Header Styles */
+header {
+    background: #00a1e4; /* Define un fondo gris claro para el encabezado. */
+    color: #fff; /* Establece el color del texto en blanco. */
+    padding: 10px; /* Agrega un relleno interno alrededor del contenido del encabezado. */
+    text-align: center; /* Centra el texto dentro del encabezado. */
+}
+
+.container {
+    padding: 20px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  #overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Fondo negro con 50% de opacidad */
+    display: none; /* Oculto por defecto */
+    z-index: 999; /* Asegúrate de que esté por encima del contenido */
+    pointer-events: none; /* Permite la interacción con los elementos debajo */
+}
+
+.header-actions {
+    display: flex; /* Usa Flexbox para el diseño de los elementos hijos. */
+    justify-content: left; /* Alinea los elementos hijos al inicio del contenedor flex. */
+}
+
+/* Product Button Styles */
+#btnProductos {
+    background: #40b9eb; /* Define un fondo azul para el botón. */
+    color: #fff; /* Establece el color del texto en blanco. */
+    border: none; /* Elimina el borde predeterminado del botón. */
+    padding: 10px 20px; /* Agrega relleno interno al botón. */
+    border-radius: 5px; /* Redondea las esquinas del botón. */
+    cursor: pointer; /* Cambia el cursor a una mano al pasar sobre el botón. */
+    font-size: 24px; /* Establece un tamaño de fuente grande para el ícono. */
+    margin-right: 5px;
+}
+
+#btnProductos:hover {
+    background: #00a1e4; /* Cambia el color de fondo cuando el botón es hovered. */
+}
+
+main {
+    padding: 20px; /* Agrega relleno alrededor del contenido principal. */
+}
+
+/* Profile Toggle Styles */
+.profile-toggle {
+    text-align: center; /* Centra el contenido dentro del contenedor. */
+    margin-bottom: 20px; /* Agrega un margen inferior para separar del contenido siguiente. */
+}
+
+#toggleProfile {
+    background: #40b9eb; /* Define un fondo azul para el botón del ícono de perfil. */
+    color: #fff; /* Establece el color del ícono en blanco. */
+    border: none; /* Elimina el borde predeterminado del botón. */
+    padding: 10px 20px; /* Agrega relleno interno alrededor del ícono. */
+    border-radius: 5px; /* Redondea el botón para que sea circular. */
+    cursor: pointer; /* Cambia el cursor a una mano al pasar sobre el botón. */
+    font-size: 24px; /* Establece un tamaño de fuente grande para el ícono. */
+    margin-right: 5px;
+}
+
+#toggleProfile:hover {
+    background: #00a1e4; /* Cambia el color de fondo cuando el botón es hovered. */
+}
+

@@ -1,0 +1,112 @@
+body {
+    font-family: Arial, sans-serif; /* Define la fuente del texto en el cuerpo del documento */
+    background: url('/public/images/fondo.jpg') no-repeat center center; /* Establece una imagen de fondo centrada sin repetir */
+    background-size: 90%; /* Ajusta el tamaño de la imagen de fondo al 90% del contenedor */
+    
+    background-attachment: fixed; /* Fija la imagen de fondo para que no se desplace con el contenido */
+    display: flex; /* Usa Flexbox para alinear el contenido */
+    align-items: center; /* Alinea verticalmente los elementos en el centro */
+    justify-content: right; /* Alinea horizontalmente los elementos a la derecha */
+    height: 100vh; /* Establece la altura del contenedor al 100% de la altura de la ventana del navegador */
+    margin: 0; /* Elimina el margen por defecto del cuerpo */
+}
+
+.login-container {
+    position: relative; /* Posiciona el contenedor de manera que el z-index sea efectivo */
+    z-index: 1; /* Establece el nivel de apilamiento del contenedor */
+    background: white; /* Establece el color de fondo del contenedor de login */
+    padding: 40px; /* Agrega un espacio interno de 40px alrededor del contenido */
+    border-radius: 10px; /* Redondea las esquinas del contenedor */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Aplica una sombra sutil alrededor del contenedor */
+    text-align: center; /* Centra el texto dentro del contenedor */
+    width: 400px; /* Define un ancho fijo para el contenedor de login */
+    margin: 100px; /* Aplica un margen de 100px alrededor del contenedor de login */
+}
+
+.login-container {
+    position: relative; /* Repetido, se puede eliminar ya que es redundante */
+    z-index: 1; /* Repetido, se puede eliminar ya que es redundante */
+    background: white; /* Repetido, se puede eliminar ya que es redundante */
+    padding: 20px; /* Ajusta el espacio interno del contenedor a 20px */
+    border-radius: 10px; /* Repetido, se puede eliminar ya que es redundante */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Repetido, se puede eliminar ya que es redundante */
+    text-align: center; /* Repetido, se puede eliminar ya que es redundante */
+}
+
+
+.form-group {
+    margin-bottom: 5px; /* Agrega un margen inferior de 5px a cada grupo de formulario */
+    display: flex; /* Usa Flexbox para alinear los elementos dentro del grupo */
+    align-items: center; /* Alinea verticalmente los elementos en el centro */
+    justify-content: flex-start; /* Alinea horizontalmente los elementos al inicio */
+}
+
+label {
+    display: block; /* Hace que el label se comporte como un bloque */
+    margin-right: 10px; /* Agrega un espacio de 10px entre el label y el input */
+    color: #555; /* Define el color del texto del label */
+    font-size: 14px; /* Establece el tamaño de fuente del label */
+    width: 80px; /* Define un ancho fijo para el label */
+}
+
+input {
+    width: calc(100% - 90px); /* Ajusta el ancho del input teniendo en cuenta el ancho del label y el margen derecho */
+    padding: 10px; /* Agrega un espacio interno de 10px dentro del input */
+    border: 1px solid #ddd; /* Define un borde gris claro alrededor del input */
+    border-radius: 5px; /* Redondea las esquinas del input */
+    font-size: 16px; /* Establece el tamaño de fuente del input */
+}
+
+.login-btn {
+    width: 100%; /* Establece el ancho del botón al 100% del contenedor padre */
+    padding: 14px; /* Agrega un espacio interno de 14px dentro del botón */
+    background-color: #1877F2; /* Define el color de fondo del botón similar al botón de Facebook */
+    color: white; /* Establece el color del texto del botón */
+    border: none; /* Elimina el borde por defecto del botón */
+    border-radius: 5px; /* Redondea las esquinas del botón */
+    cursor: pointer; /* Cambia el cursor a una mano al pasar sobre el botón */
+    font-size: 16px; /* Establece el tamaño de fuente del botón */
+    transition: background-color 0.3s; /* Agrega una transición suave para el cambio de color de fondo */
+}
+
+.login-btn:hover {
+    background-color: #155CDA; /* Cambia el color de fondo cuando el botón es hover */
+}
+
+.links {
+    margin-top: 20px; /* Agrega un margen superior de 20px a la sección de enlaces */
+}
+
+.btn {
+    display: inline-block; /* Hace que el botón se comporte como un bloque en línea */
+    padding: 10px 20px; /* Agrega espacio interno de 10px arriba y abajo, 20px a los lados */
+    color: white; /* Define el color del texto del botón */
+    text-decoration: none; /* Elimina la decoración del texto (subrayado) */
+    border-radius: 5px; /* Redondea las esquinas del botón */
+    margin-top: 10px; /* Agrega un margen superior de 10px al botón */
+    font-size: 14px; /* Establece el tamaño de fuente del botón */
+}
+
+.github-btn {
+    background-color: #333; /* Define el color de fondo del botón para GitHub */
+}
+
+.github-btn:hover {
+    background-color: #555; /* Cambia el color de fondo cuando el botón es hover */
+}
+
+.forgot-btn {
+    background-color: #1877F2; /* Define el color de fondo del botón para olvidar contraseña */
+}
+
+.forgot-btn:hover {
+    background-color: #155CDA; /* Cambia el color de fondo cuando el botón es hover */
+}
+
+.register-btn{
+    background-color: #1877F2; /
+}
+
+.register-btn:hover {
+    background-color: #155CDA; /* Cambia el color de fondo cuando el botón es hover */
+}

@@ -1,0 +1,128 @@
+/* Contenedor de las tarjetas de producto */
+#productos-container {
+    display: flex;
+    flex-wrap: wrap; /* Permite que las tarjetas se envuelvan a la siguiente línea */
+    gap: 60px; /* Espacio entre las tarjetas */
+    justify-content: center; /* Centra las tarjetas horizontalmente */
+    box-sizing: border-box; /* Incluye el padding y el borde en el ancho total */
+}
+
+.producto-header {
+    display: flex; /* Usa el diseño flex para los elementos hijos */
+    align-items: baseline; /* Alinea los elementos hijos a lo largo de la línea base */
+    margin-bottom: 12px; /* Reduce el margen inferior del encabezado */
+}
+
+/* Estilo para el título del producto */
+.producto-title {
+    font-size: 1.5em; /* Tamaño de fuente de 1.5 veces el tamaño base */
+    margin: 0; /* Elimina el margen por defecto */
+    margin-right: 8px; /* Espacio a la derecha del título */
+}
+
+
+/* Ajuste para la tarjeta del producto */
+.producto-card {
+    width: 300px; /* Ancho fijo para cada tarjeta */
+    height: 400px; /* Alto fijo para cada tarjeta */
+    box-sizing: border-box; /* Incluye el padding y el borde en el ancho total */
+    border: 1px solid #ddd; /* Borde gris claro alrededor de la tarjeta */
+    border-radius: 8px; /* Bordes redondeados de 8px */
+    padding: 16px; /* Espaciado interno de 16px */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra sutil alrededor de la tarjeta */
+    background-color: #fff; /* Fondo blanco para la tarjeta */
+    margin-bottom: 2px; /* Margen inferior de 16px */
+    display: flex;
+    flex-direction: column; /* Alinea los elementos de la tarjeta en una columna */
+    align-items: center; /* Centra el contenido de la tarjeta horizontalmente */
+    overflow: hidden; /* Oculta el contenido que se desborda del contenedor */
+}
+/*producto-title*/
+
+
+
+
+/* Contenedor para la imagen del producto */
+.producto-image-container {
+    width: 100%; /* Ancho completo del contenedor de la tarjeta */
+    height: 120px; /* Alto fijo para la imagen del producto */
+    display: flex; /* Usa el diseño flex para centrar la imagen */
+    justify-content: center; /* Centra la imagen horizontalmente */
+  
+} 
+
+/* Estilo para la imagen del producto */
+.thumbnail-image {
+    width: 100%; /* Ancho completo del contenedor de la imagen */
+    height: 100%; /* Alto completo del contenedor de la imagen */
+    object-fit: cover; /* Mantiene la proporción de la imagen y recorta si es necesario */
+    border-radius: 8px; /* Bordes redondeados de 8px */
+    border: 2px solid #ddd; /* Borde gris claro alrededor de la imagen */
+    transition: border-color 0.3s; /* Transición suave del color del borde al pasar el ratón */
+}
+
+/* Efecto al pasar el ratón sobre la imagen */
+.thumbnail-image:hover {
+    border-color: #007bff; /* Cambia el color del borde a azul al pasar el ratón */
+}
+
+.producto-stock {
+    font-size: 0.9em; /* Tamaño de fuente ligeramente menor */
+    color: #888; /* Color gris tenue para el texto */
+    margin: 0; /* Elimina el margen por defecto */
+    margin-bottom: 4px; /* Reduce el margen inferior para acercarlo al siguiente elemento */
+}
+
+/* Estilo para el texto del propietario del producto y el precio */
+.producto-owner{
+    font-size: 0.6em; /* Tamaño de fuente estándar */
+    margin: 0; /* Elimina el margen por defecto */
+    margin-bottom: 0.2px; /* Margen inferior de 8px */
+}
+.producto-price {
+    font-size: 1em; /* Tamaño de fuente estándar */
+    margin-bottom: 0px; /* Margen inferior de 8px */
+    margin: 0; /* Elimina el margen por defecto */
+}
+
+/* Contenedor para los botones */
+.button-container {
+    display: flex; /* Usa el diseño flex para los botones */
+    justify-content: space-between; /* Distribuye los botones a los extremos del contenedor */
+    margin-top: 16px; /* Margen superior de 16px */
+    width: 100%; /* Asegura que el contenedor de los botones use el ancho completo de la tarjeta */
+}
+
+/* Estilo general para los botones */
+.add-to-cart-btn,
+.eliminar-btn {
+    background-color: #007bff; /* Color de fondo azul para los botones */
+    color: white; /* Color del texto blanco */
+    border: none; /* Elimina el borde por defecto del botón */
+    border-radius: 4px; /* Bordes redondeados de 4px */
+    padding: 8px 12px; /* Espaciado interno de 8px arriba y abajo, 12px a los lados */
+    cursor: pointer; /* Cambia el cursor a una mano al pasar sobre el botón */
+    transition: background-color 0.3s, transform 0.2s; /* Transiciones suaves para el color de fondo y el escalado */
+}
+
+/* Efecto al pasar el ratón sobre el botón de añadir al carrito */
+.add-to-cart-btn:hover {
+    background-color: #0056b3; /* Cambia el color de fondo a azul oscuro al pasar el ratón */
+    transform: scale(1.05); /* Escala ligeramente el botón al pasar el ratón */
+}
+
+/* Estilo para el botón de eliminar */
+.eliminar-btn {
+    background-color: #dc3545; /* Color de fondo rojo para el botón */
+}
+
+/* Efecto al pasar el ratón sobre el botón de eliminar */
+.eliminar-btn:hover {
+    background-color: #c82333; /* Cambia el color de fondo a rojo oscuro al pasar el ratón */
+    transform: scale(1.05); /* Escala ligeramente el botón al pasar el ratón */
+}
+
+/* Estilo para el SVG dentro del botón de eliminar */
+.eliminar-btn svg {
+    fill: white; /* Color de relleno blanco para el ícono SVG */
+}

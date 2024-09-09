@@ -1,0 +1,317 @@
+/* General styles */
+
+.admin-header {
+    display: flex;
+    align-items: center;
+}
+
+.admin-header h1 {
+    flex-grow: 1; /* Esto empuja los botones hacia el borde derecho */
+}
+
+.admin-header button {
+    margin-left: 10px; /* Ajusta este valor para acercar los botones */
+    padding: 8px 12px; /* Ajusta el padding si es necesario */
+}
+
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+}
+
+header.admin-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+h1 {
+    font-size: 2em;
+    color: #007bff;
+}
+
+h2 {
+    color: #333;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #00a1e4;
+    padding-bottom: 5px;
+}
+
+button, input[type="submit"] {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover, input[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+#logout {
+    background-color: #dc3545;
+}
+
+#logout:hover {
+    background-color: #c82333;
+}
+
+/* Form styles */
+.product-form-section {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.product-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    align-items: start; /* Alinea los elementos en la parte superior de sus celdas */
+}
+
+.product-form .form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.product-form .form-group label {
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.product-form .form-group input[type="text"],
+.product-form .form-group input[type="number"],
+.product-form .form-group select,
+.product-form .form-group textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    width: 100%; /* Asegura que los campos ocupen todo el espacio disponible */
+}
+
+.product-form .form-group textarea {
+    resize: vertical; /* Permite el ajuste vertical del área de texto */
+}
+
+.product-form .form-group input[type="checkbox"] {
+    align-self: flex-start;
+    margin-top: 10px;
+}
+
+.product-form .submit-btn {
+    grid-column: span 2;
+    justify-self: center;
+    background-color: #00a1e4;
+    padding: 12px 24px;
+    font-size: 16px;
+}
+
+/* Product container */
+#productos-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+    box-sizing: border-box;
+}
+
+/* Product card */
+.producto-card {
+    width: 300px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
+}
+
+.producto-image-container {
+    width: 100%;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 15px;
+}
+
+.thumbnail-image {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    transition: border-color 0.3s;
+}
+
+.thumbnail-image:hover {
+    border-color: #007bff;
+}
+
+/* Product text */
+.producto-title {
+    font-size: 1.2em;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.producto-stock,
+.producto-owner,
+.producto-price {
+    font-size: 0.9em;
+    color: #555;
+    margin: 0;
+    margin-bottom: 8px;
+}
+
+/* Buttons */
+.button-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.add-to-cart-btn,
+.eliminar-btn {
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    text-align: center;
+}
+
+.add-to-cart-btn {
+    background-color: #28a745;
+    color: white;
+}
+
+.add-to-cart-btn:hover {
+    background-color: #218838;
+    transform: scale(1.05);
+}
+
+.eliminar-btn {
+    background-color: #dc3545;
+    color: white;
+}
+
+.eliminar-btn:hover {
+    background-color: #c82333;
+    transform: scale(1.05);
+}
+
+.eliminar-btn svg {
+    fill: white;
+}
+
+/* General styles */
+body {
+    font-family: 'Roboto', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+}
+
+.product-card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 20px;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.product-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.product-title {
+    font-size: 1.5em;
+    color: #007bff;
+    margin-bottom: 15px;
+}
+
+.product-image-container {
+    width: 100%;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.product-thumbnail {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: 8px;
+    object-fit: cover;
+    border: 2px solid #ddd;
+}
+
+.product-details p {
+    margin: 5px 0;
+    font-size: 1em;
+    color: #555;
+}
+
+.product-details p strong {
+    color: #333;
+}
+
+.product-actions {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.btn {
+    padding: 10px 20px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    text-align: center;
+    font-size: 1em;
+}
+
+.btn-eliminar {
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn-eliminar:hover {
+    background-color: #c82333;
+    transform: scale(1.05);
+}
+
+.btn-editar {
+    background-color: #007bff;
+    color: white;
+}
+
+.btn-editar:hover {
+    background-color: #0056b3;
+    transform: scale(1.05);
+}

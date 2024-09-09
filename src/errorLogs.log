@@ -1,0 +1,13 @@
+{"level":"error","message":"error log","timestamp":"2024-07-10 15:07:01"}
+{"level":"fatal","message":"fatal log","timestamp":"2024-07-10 15:07:01"}
+{"level":"error","message":"error log","timestamp":"2024-07-10 15:15:19"}
+{"level":"fatal","message":"fatal log","timestamp":"2024-07-10 15:15:19"}
+{"level":"error","message":"Error durante la autenticación local","timestamp":"2024-07-10 15:17:49"}
+{"level":"error","message":"Error durante la autenticación local","timestamp":"2024-07-10 15:18:13"}
+{"level":"error","message":"AutenticacionFallida: La contraseña es incorrecta.","timestamp":"2024-07-10 15:18:13"}
+{"level":"error","message":"UsuarioNoEncontrado: No se encontró un usuario con ese correo electrónico.","timestamp":"2024-07-10 15:19:59"}
+{"level":"error","message":"UsuarioNoEncontrado: No se encontró un usuario con ese correo electrónico.","timestamp":"2024-07-10 15:27:05"}
+{"level":"error","message":"No se recibió el producto","timestamp":"2024-07-10 15:39:13"}
+{"level":"error","message":"error log","timestamp":"2024-07-25 09:44:52"}
+{"level":"fatal","message":"fatal log","timestamp":"2024-07-25 09:44:52"}
+{"level":"error","message":"faltan completar datos","timestamp":"2024-07-25 15:14:19"}

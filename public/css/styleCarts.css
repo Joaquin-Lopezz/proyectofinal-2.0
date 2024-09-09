@@ -1,0 +1,73 @@
+/* Overlay para el carrito */
+.cart-container {
+    position: fixed; /* Posiciona el contenedor de manera fija en la ventana */
+    bottom: 20px; /* Coloca el contenedor en la parte inferior de la ventana */
+    right: 100px; /* Coloca el contenedor a 100px desde el borde derecho de la ventana */
+    width: 400px; /* Ancho del contenedor de chat */
+    height: 400px; /* Alto del contenedor de chat */
+    border: 1px solid #ccc; /* Borde gris claro alrededor del contenedor */
+    background: #fff; /* Fondo blanco del contenedor */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra sutil alrededor del contenedor */
+    display: flex; /* Usa el modelo de caja flexible para organizar el contenido */
+    flex-direction: column; /* Organiza los hijos en una columna */
+    border-radius: 10px; /* Bordes redondeados del contenedor */
+    overflow: hidden; /* Oculta cualquier contenido que desborde el contenedor */
+    z-index: 1000; /* Asegura que el contenedor esté por encima de otros elementos */
+    transform: translateY(100%); /* Inicialmente oculta el contenedor fuera de la vista */
+    transition: transform 0.3s ease-in-out; /* Añade una transición suave para el movimiento vertical */
+}
+
+
+
+#toggleCarts {
+    position: fixed; /* Posiciona el ícono de manera fija en la ventana */
+    bottom: 20px; /* Mantiene el ícono en la parte inferior de la ventana */
+    left: 20px; /* Coloca el ícono a 20px desde el borde izquierdo de la ventana */
+    background: #0078FF; /* Fondo azul del ícono */
+    color: white; /* Texto blanco en el ícono */
+    border: none; /* Elimina el borde predeterminado del ícono */
+    border-radius: 50%; /* Hace que el ícono sea circular */
+    width: 50px; /* Ancho del ícono */
+    height: 50px; /* Alto del ícono */
+    cursor: pointer; /* Cambia el cursor a una mano cuando se pasa sobre el ícono */
+    font-size: 20px; /* Tamaño de fuente del ícono */
+    display: flex; /* Usa el modelo de caja flexible para centrar el contenido dentro del ícono */
+    align-items: center; /* Alinea verticalmente el contenido dentro del ícono */
+    justify-content: center; /* Centra horizontalmente el contenido dentro del ícono */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra sutil alrededor del ícono */
+    z-index: 1000; /* Asegura que el ícono esté por encima de otros elementos */
+}
+#cartOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* Fondo negro con 50% de opacidad */
+    display: none; /* Oculto por defecto */
+    z-index: 999; /* Asegúrate de que esté por encima del contenido */
+    pointer-events: none; /* Permite la interacción con los elementos debajo */
+}
+
+/* Información del Carrito */
+.cart-info {
+    background: #fff; /* Fondo blanco para el contenedor del carrito */
+    padding: 15px; /* Espacio interno alrededor del contenido */
+    border-radius: 6px; /* Esquinas redondeadas */
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.1); /* Sombra sutil alrededor del contenedor */
+    max-width: 700px; /* Ancho máximo del contenedor */
+    position: fixed; /* Mantiene el contenedor fijo en la ventana de visualización */
+    top: 80px; /* Espacio desde la parte superior de la ventana */
+    right: 20px; /* Espacio desde el borde derecho de la ventana */
+    display: none; /* Oculto por defecto */
+    z-index: 1000; /* Asegúrate de que esté por encima del overlay */
+    left: -100%; /* Inicialmente coloca el carrito fuera de la vista hacia la izquierda */
+    transition: left 0.5s ease; /* Transición suave para la propiedad 'left' */
+    overflow-y: auto; /* Habilita el desplazamiento vertical */
+    max-height: 80vh; /* Altura máxima para limitar el tamaño del contenedor */
+}
+
+.cart-info.open {
+    display: block; /* Muestra el carrito cuando está abierto */
+    left: 80px; /* Posiciona el carrito en la ventana de visualización */
+}

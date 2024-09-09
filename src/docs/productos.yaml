@@ -1,0 +1,312 @@
+openapi: 3.0.0
+info:
+  title: Gestión de Productos
+  description: API para gestionar productos, incluyendo operaciones para obtener, agregar, actualizar y eliminar productos.
+  version: 1.0.0
+
+paths:
+  /api/products:
+    get:
+      tags:
+        - productos
+      summary: Obtiene una lista de productos.
+      description: Retorna todos los productos almacenados en la base de datos.
+      responses:
+        '200':
+          description: Un array JSON con todos los productos.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    _id:
+                      type: string
+                      description: ID único del producto.
+                      example: "d5f2c7b8a34e"
+                    title:
+                      type: string
+                      description: Título del producto.
+                      example: "Producto Ejemplo"
+                    description:
+                      type: string
+                      description: Descripción del producto.
+                      example: "Descripción detallada del producto."
+                    price:
+                      type: number
+                      description: Precio del producto.
+                      example: 500
+                    thumbnail:
+                      type: string
+                      description: URL o ruta de la imagen del producto.
+                      example: "/thumbnail.jpg"
+                    code:
+                      type: string
+                      description: Código único del producto.
+                      example: "ABC123"
+                    stock:
+                      type: number
+                      description: Cantidad disponible del producto.
+                      example: 100
+                    category:
+                      type: string
+                      description: Categoría del producto.
+                      example: "Electrónica"
+                    owner:
+                      type: string
+                      description: Propietario del producto.
+                      example: "admin"
+                    status:
+                      type: string
+                      description: Estado del producto.
+                      example: "true"
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Error interno del servidor."
+
+    post:
+      tags:
+        - productos
+      summary: Agrega un nuevo producto.
+      description: Crea un nuevo producto en la base de datos si cumple con los valores requeridos.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: Título del producto.
+                  example: "Producto Ejemplo"
+                description:
+                  type: string
+                  description: Descripción del producto.
+                  example: "Descripción detallada del producto."
+                price:
+                  type: number
+                  description: Precio del producto.
+                  example: 500
+                thumbnail:
+                  type: string
+                  description: URL o ruta de la imagen del producto.
+                  example: "/thumbnail.jpg"
+                code:
+                  type: string
+                  description: Código único del producto.
+                  example: "ABC123"
+                stock:
+                  type: number
+                  description: Cantidad disponible del producto.
+                  example: 100
+                category:
+                  type: string
+                  description: Categoría del producto.
+                  example: "Electrónica"
+                owner:
+                  type: string
+                  description: Propietario del producto.
+                  example: "admin"
+                status:
+                  type: string
+                  description: Estado del producto.
+                  example: "true"
+      responses:
+        '200':
+          description: El producto creado.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  _id:
+                    type: string
+                    description: ID único del producto creado.
+                    example: "2yvejxhatr"
+                  title:
+                    type: string
+                    description: Título del producto.
+                    example: "Producto Ejemplo"
+                  description:
+                    type: string
+                    description: Descripción del producto.
+                    example: "Descripción detallada del producto."
+                  price:
+                    type: number
+                    description: Precio del producto.
+                    example: 500
+                  thumbnail:
+                    type: string
+                    description: URL o ruta de la imagen del producto.
+                    example: "/thumbnail.jpg"
+                  code:
+                    type: string
+                    description: Código único del producto.
+                    example: "ABC123"
+                  stock:
+                    type: number
+                    description: Cantidad disponible del producto.
+                    example: 100
+                  category:
+                    type: string
+                    description: Categoría del producto.
+                    example: "Electrónica"
+                  owner:
+                    type: string
+                    description: Propietario del producto.
+                    example: "admin"
+                  status:
+                    type: string
+                    description: Estado del producto.
+                    example: "true"
+        '400':
+          description: Campos incompletos, datos erróneos, caracteres inválidos o claves duplicadas.
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Error interno del servidor."
+
+  /api/products/{pid}:
+    delete:
+      tags:
+        - productos
+      summary: Elimina un producto por su ID.
+      description: Elimina un producto de la base de datos dado su ID. Retorna un mensaje confirmando la eliminación o un mensaje de error si el producto no es encontrado.
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          description: ID único del producto a eliminar.
+          schema:
+            type: string
+            example: "60f73f1c8d2a8b6f1c9c5d7a"
+      responses:
+        '200':
+          description: Mensaje confirmando la eliminación del producto.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Se eliminó el producto con Id: 60f73f1c8d2a8b6f1c9c5d7a"
+        '404':
+          description: El producto no fue encontrado.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "No se encontró ningún producto con Id: 60f73f1c8d2a8b6f1c9c5d7a"
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Error interno del servidor. No se pudo eliminar el producto."
+
+    put:
+      tags:
+        - productos
+      summary: Actualiza un producto por su ID.
+      description: Actualiza la información de un producto dado su ID. No permite la modificación de los campos `id` y `code`. Retorna un mensaje confirmando la actualización o un mensaje de error si el producto no es encontrado.
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          description: ID único del producto a actualizar.
+          schema:
+            type: string
+            example: "60f73f1c8d2a8b6f1c9c5d7a"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                  description: Título del producto.
+                  example: "Teclado Mecánico"
+                description:
+                  type: string
+                  description: Descripción del producto.
+                  example: "Teclado mecánico RGB con switches mecánicos."
+                price:
+                  type: number
+                  description: Precio del producto.
+                  example: 75.50
+                thumbnail:
+                  type: string
+                  description: URL o ruta de la imagen del producto.
+                  example: "/images/teclado.jpg"
+                stock:
+                  type: number
+                  description: Cantidad disponible del producto.
+                  example: 150
+                category:
+                  type: string
+                  description: Categoría del producto.
+                  example: "Accesorios"
+                owner:
+                  type: string
+                  description: Propietario del producto.
+                  example: "admin"
+                status:
+                  type: boolean
+                  description: Estado del producto.
+                  example: true
+      responses:
+        '200':
+          description: Mensaje confirmando la actualización del producto.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "El producto se actualizó con éxito."
+        '404':
+          description: Datos inválidos del producto o error en la actualización. Posibles mensajes de error.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "No se permite modificar los campos id y code o No se encontró ningún producto con Id: 60f73f1c8d2a8b6f1c9c5d7a"
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Error interno del servidor. No se pudo actualizar el producto."

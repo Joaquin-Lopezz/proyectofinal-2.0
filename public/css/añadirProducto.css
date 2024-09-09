@@ -1,0 +1,160 @@
+/* General Styles */
+/* Estilos generales del botón */
+.btn {
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    text-align: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Estilos específicos del botón de perfil */
+.profile-btn {
+    background-color: #00a1e4; /* Color principal */
+    color: white; /* Color del texto */
+    border: 2px solid transparent; /* Borde inicial transparente */
+}
+
+.profile-btn:hover {
+    background-color: #007bb5; /* Color de fondo al pasar el cursor */
+    color: #fff; /* Color del texto al pasar el cursor */
+    border-color: #007bb5; /* Borde al pasar el cursor */
+}
+
+/* Opcional: estilos adicionales para efectos de sombra o ajuste de fuente */
+.profile-btn:active {
+    box-shadow: inset 0px 0px 5px rgba(0, 0, 0, 0.2);
+}
+
+.profile-btn:focus {
+    outline: none;
+    box-shadow: 0 0 10px #00a1e4;
+}
+
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    background-color: #f4f7f6;
+    margin: 0;
+    padding: 0;
+    background-image: url('/public/images/fondo.jpg'); /* Imagen de fondo */
+}
+
+#premium-content {
+    padding: 20px;
+}
+
+h1,
+h3 {
+    color: #444;
+    text-align: center;
+    font-weight: 300;
+}
+
+/* Container Styles */
+#agregarProductoContainer,
+#productos-container {
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 800px;
+    background: #00a1e4; /* Primary color background */
+    border: 1px solid #e1e1e1;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+#agregarProductoContainer:hover,
+#productos-container:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* Form Styles */
+#form-container {
+    margin: 20px auto;
+    padding: 20px;
+    max-width: 800px;
+    background: #fff;
+    border: 2px solid #00a1e4; /* Primary color border */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+#form-container:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: 500;
+    margin-bottom: 5px;
+    color: #666;
+    font-size: 14px;
+}
+
+.form-group input[type='text'],
+.form-group input[type='number'] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input[type='text']:focus,
+.form-group input[type='number']:focus {
+    border-color: #00a1e4; /* Primary color focus */
+    outline: none;
+}
+
+.form-group input[type='checkbox'] {
+    margin-right: 10px;
+    transform: scale(1.2);
+}
+
+.container {
+    text-align: center;
+}
+
+button#agregar-producto {
+    background-color: #00a1e4; /* Primary color background */
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+button#agregar-producto:hover {
+    background-color: #007bbd; /* Darker shade for hover effect */
+    transform: translateY(-2px);
+}
+
+/* Responsive Styles */
+@media (max-width: 600px) {
+    #agregarProductoContainer,
+    #productos-container,
+    #form-container {
+        padding: 15px;
+        margin: 15px;
+    }
+
+    .form-group input[type='text'],
+    .form-group input[type='number'] {
+        padding: 8px;
+    }
+
+    button#agregar-producto {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+}
