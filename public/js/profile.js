@@ -112,8 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 var documentosButton = document.getElementById('documentos');
                 documentosButton.style.display = 'none';
             }
-
-            await loadCart(usuario.id, usuario.email);
+            await loadCart(usuario.cart);
 
             document.getElementById('logout').addEventListener('click', logout);
             document
@@ -193,14 +192,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    async function loadCart(userId, email) {
+    async function loadCart(cartId) {
         try {
-            const carritoResponse = await fetch(`/api/carts/${userId}`, {
-                method: 'POST',
+        
+            const carritoResponse = await fetch(`/api/carts/${cartId}`, {
+                method: 'GET',
             });
             const carrito = await carritoResponse.json();
-
-            renderCartProducts(carrito.carrito, email);
+          
+            renderCartProducts(carrito.cart,carrito.cart.email);
         } catch (error) {
             console.error('Error cargando el carrito:', error);
         }
@@ -235,6 +235,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 .getElementById(botonIdDelete)
                 .addEventListener('click', async () => {
                     try {
+                        console.log(productos)
                         const response = await fetch(
                             `/api/carts/${productos._id}/${producto.idProduct}`,
                             { method: 'DELETE' }
@@ -260,8 +261,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 <button id="buyButton" style="display: inline-block; border: 2px solid #007bff; padding: 8px 16px; border-radius: 8px; background-color: #007bff; color: #fff; font-size: 16px; font-weight: bold; cursor: pointer;">Comprar</button>
             </div>`;
         container.appendChild(precioFinalElem);
-
-        document
+     
+        console.log(productos._id)
+        document    
             .getElementById('buyButton')
             .addEventListener('click', async () => {
                 try {
@@ -280,7 +282,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     if (response.ok) {
                         const responseData = await response.json();
-
+                        if(responseData.status == 'success'){
+                            alert('compra realizada')
+                            location.reload()
+                        }
                         if (responseData.status == 'error') {
                             alert(responseData.payload.mensaje);
                         } 

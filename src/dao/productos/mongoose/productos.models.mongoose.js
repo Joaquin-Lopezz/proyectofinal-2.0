@@ -3,10 +3,7 @@ import paginate from 'mongoose-paginate-v2';
 
 export const productoSchema = new Schema(
     {
-        _id: {
-            type: String,
-            default: () => Math.random().toString(36).substring(2),
-        },
+
         title: { type: String, required: true },
         description: { type: String, required: true },
         price: {

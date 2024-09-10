@@ -80,6 +80,7 @@ class UsuariosService {
                     apellido: usuario['apellido'],
                     rol: usuario['rol'],
                     status: usuario['status_document'],
+                    cart: usuario['cart'],
                     profileImage: profileImageReference,
                 };
             }

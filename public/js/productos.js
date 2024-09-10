@@ -6,18 +6,18 @@ window.addEventListener('load', async () => {
     const userResponse = await fetch('/api/usuarios/current');
     const usuarioJson = await userResponse.json();
     const usuario = usuarioJson.payload;
-    const carrito = await fetch(`/api/carts/${usuario.id}`, {
-        method: 'POST',
-    });
-
+  
+    const carrito = await fetch(`/api/carts/${usuario.cart}`, {
+        method: 'GET',
+    });   
     const cart = await carrito.json();
-    const carritoId = cart.carrito['_id'];
+
 
     const response = await fetch('/api/products', {
         method: 'GET',
     });
     const productos = await response.json();
-    productosAddcarrito(productos, carritoId, usuario['email'], usuario['rol']);
+    productosAddcarrito(productos, cart.cart._id, usuario['email'], usuario['rol']);
 });
 
 function mostrarContenidoPremium() {
@@ -25,7 +25,7 @@ function mostrarContenidoPremium() {
     document.getElementById('premium-content').style.display = 'block';
 }
 function productosAddcarrito(productos, carritoId, email, rol) {
-    // Iteramos los productos y los mostramos en la vista, agregamos un botón a cada producto
+
     const container = document.getElementById('productos-container');
 
     productos.forEach((producto, index) => {

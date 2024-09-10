@@ -14,6 +14,7 @@ export async function crearUsuario(req, res, next) {
     try {
         req.body.password = hashear(req.body.password);
         const usuario = await usuariosService.createUsuario(req.body);
+        console.log(usuario._id)
         const carritoId =await crearCarrito(usuario._id,usuario.email)
 
         usuario.cart = carritoId;

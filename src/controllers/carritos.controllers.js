@@ -35,10 +35,11 @@ export async function postCartsController(req, res, next) {
 }
 
 export async function addProductCart(req, res, next) {
-    //añadimos producto al carrito
-    ///:cid/producto/:pid
+  
     const carritoId = req.params.cid;
     const idProduct = req.params.pid;
+    console.log(carritoId)
+    console.log(idProduct)
     try {
         if (!idProduct) {
             return next(

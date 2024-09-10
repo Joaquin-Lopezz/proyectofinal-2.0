@@ -4,7 +4,6 @@ import { carritoDao } from '../../../services/carrito.service.js';
 
 export const usuariosSchema = new Schema(
     {
-        _id: { type: String, default: randomUUID },
         email: { type: String, unique: true, required: true },
         password: { type: String, default: '(no aplica)' },
         nombre: { type: String, required: true },

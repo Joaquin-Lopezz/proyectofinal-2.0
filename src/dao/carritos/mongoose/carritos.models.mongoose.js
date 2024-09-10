@@ -2,13 +2,6 @@ import { Schema, model } from 'mongoose';
 
 export const cartsSchema = new Schema(
     {
-        _id: {
-            type: String,
-            default: () => Math.random().toString(36).substring(2),
-        },
-        usuario: {
-            type: String,
-        },
         email: {
             type: String,
         },
@@ -37,12 +30,12 @@ export const cartsSchema = new Schema(
                     type: Number,
                     default: 1,
                 },
+                _id: false
             },
         ],
     },
     {
         strict: 'throw',
-        versionKey: false,
-        _id: false,
+        versionKey: false
     }
 );

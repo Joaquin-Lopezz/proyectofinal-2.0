@@ -14,12 +14,9 @@ class CarritoService {
     async findOne(usuarioId) {
         try {
             let carrito = await carritoDao.findCart(usuarioId);
-
-
             if (!carrito) {
                 carrito = await carritoDao.create({
                     email:usuarioId.email,
-                    usuario: usuarioId.usuario,
                     products: [],
                 });
             }
