@@ -20,9 +20,9 @@ sesionesRouter.post(
         });
     },
     (error, req, res, next) => {
-        res.status(401).json({
+        res.status(400).json({
             status: 'error',
-            message: 'error al registrar usuario',
+            message: error.message,
         });
     }
 );
@@ -39,8 +39,6 @@ sesionesRouter.post(
         });
     },
     (error, req, res, next) => {
-  
-        console.error('Error en autenticación:', error);
         res.status(401).json({ status: 'error', message: error.message });
     }
 );

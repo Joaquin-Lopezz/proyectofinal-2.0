@@ -46,6 +46,15 @@ export async function postCartsController(req, res, next) {
 
         let usuario = await usuariosService.findById(userId);
 
+        if (!usuario) {
+            return res.status(404).json({ error: 'Usuario no encontrado' });
+        }
+        if (!usuario.cart) {
+            return res
+                .status(404)
+                .json({ error: 'El usuario no tiene carrito asignado' });
+        }
+
         let carrito = await carritoService.findOne(usuario.cart);
         res.setHeader('Content-Type', 'application/json');
         res.status(200).json({ carrito });
@@ -120,10 +129,24 @@ export async function addProductCart(req, res, next) {
 }
 
 export async function compraCarrito(req, res, next) {
-    const carritoId = req.params.cid;
-    const carrito = await carritoService.findByIdCart(carritoId);
-
     try {
+        const carritoId = req.params.cid;
+
+        if (!mongoose.Types.ObjectId.isValid(carritoId)) {
+            return res.status(400).json({ message: 'ID de carrito inválido' });
+        }
+        const carrito = await carritoService.findByIdCart(carritoId);
+
+        if (!carrito) {
+            return next(
+                CustomError.createError(
+                    'No se encontró el carrito',
+                    `No se encontró el carrito con el ID: ${carritoId}`,
+                    'No se encontró el carrito',
+                    TIPOS_ERROR.NOT_FOUND
+                )
+            );
+        }
         if (carrito.products.length == 0) {
             return res.status(200).json({
                 status: 'error',
@@ -140,12 +163,14 @@ export async function compraCarrito(req, res, next) {
         );
 
         if (!amount) {
-            return next(CustomError.createError(
-                'error',
-                '400',
-                'No hay suficiente stock para completar la compra',
-                TIPOS_ERROR.ARGUMENTOS_INVALIDOS
-            ))
+            return next(
+                CustomError.createError(
+                    'error',
+                    '400',
+                    'No hay suficiente stock para completar la compra',
+                    TIPOS_ERROR.ARGUMENTOS_INVALIDOS
+                )
+            );
         }
 
         const ticket = await ticketService.createTicket({

@@ -17,7 +17,6 @@ export function soloLogueadosApi(req, res, next) {
 
 export function premium(req, res, next) {
     if (req.headers['x-test-mode']) {
-        // Omite la verificación de autenticación en el modo de prueba
         return next();
     }
     const userRole = req.user.rol;

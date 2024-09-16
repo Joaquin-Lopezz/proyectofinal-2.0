@@ -25,19 +25,26 @@ export const initPassport = () => {
             async (req, username, password, done) => {
                 try {
                     let { nombre } = req.body;
+            
+
                     if (!nombre) {
-                        return done(null, false, {
-                            message: `Complete nombre, email, y password`,
-                        });
+                        throw CustomError.createError(
+                            'Falta el campo nombre',
+                            'error',
+                            'Campo nombre es requerido',
+                            TIPOS_ERROR.REGISTER_FAIL
+                        );
                     }
                     const usuerExist = await usuariosService.findOneUserMongo(
                         username
                     );
                     if (usuerExist) {
-                        return done(null, false, {
-                            message:
-                                'ya existe un usuario registrado con esos datos',
-                        });
+                        throw CustomError.createError(
+                            'Falta el campo nombre',
+                            'error',
+                            `ya existe un usuario registrado con  ${username} `,
+                            TIPOS_ERROR.AUTENTICATION
+                        );
                     }
                     let nuevoUsuario = await crearUsuario(password, req.body);
 
@@ -74,18 +81,24 @@ export const initPassport = () => {
                             email
                         );
                         if (!usuario) {
-                            return done(null, false, {
-                                message: 'Usuario no encontrado',
-                            });
+                            throw CustomError.createError(
+                                'error login',
+                                'error',
+                                `no existe un usuario registrado con: ${email}`,
+                                TIPOS_ERROR.LOGIN_FAIL
+                            );
                         }
                         const isPasswordValid = await bcrypt.compare(
                             password,
                             usuario.password
                         );
                         if (!isPasswordValid) {
-                            return done(null, false, {
-                                message: 'Contraseña incorrecta',
-                            });
+                            throw CustomError.createError(
+                                'error login',
+                                'error',
+                                `contraseña incorrecta`,
+                                TIPOS_ERROR.LOGIN_FAIL
+                            );
                         }
 
                         done(null, usuario);

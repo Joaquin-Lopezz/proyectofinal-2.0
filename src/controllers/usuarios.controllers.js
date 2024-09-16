@@ -316,8 +316,10 @@ export async function newPassword(req, res, next) {
         const decodedToken = req.body.decodedToken;
 
         const user = await usuariosService.findOneUserTokenMongo(decodedToken);
-
-        if (!user) res.status(404).json({ error: 'no se encontro el usuario' });
+        console.log('usuario',user)
+        if (!user){
+            return res.status(404).json({ error: 'no se encontro el usuario' });
+        }
         const result = await usuariosService.newPassword(data, user);
 
         if (result.error) {

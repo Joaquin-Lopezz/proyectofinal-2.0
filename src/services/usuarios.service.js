@@ -204,7 +204,7 @@ class UsuariosService {
         }
 
         const passCript = hashear(data.password1);
-
+        console.log(user)
         if (hasheadasSonIguales(data.password1, user.password)) {
             return { error: true, code: 'PASSWORDS_ARE_SAME' };
         }

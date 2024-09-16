@@ -2,14 +2,14 @@
   "stats": {
     "suites": 7,
     "tests": 9,
-    "passes": 0,
+    "passes": 8,
     "pending": 0,
-    "failures": 9,
-    "start": "2024-09-16T04:05:13.821Z",
-    "end": "2024-09-16T04:05:16.801Z",
-    "duration": 2980,
+    "failures": 1,
+    "start": "2024-09-16T15:53:09.854Z",
+    "end": "2024-09-16T15:53:15.819Z",
+    "duration": 5965,
     "testsRegistered": 9,
-    "passPercent": 0,
+    "passPercent": 88.88888888888889,
     "pendingPercent": 0,
     "other": 0,
     "hasOther": false,
@@ -18,7 +18,7 @@
   },
   "results": [
     {
-      "uuid": "edde3e69-9d6c-469c-a3ef-29219538d55e",
+      "uuid": "ddb9cb32-914a-42ba-b085-8fc71fd64006",
       "title": "",
       "fullFile": "C:\\Users\\Tap\\Desktop\\proyectoFinal2.0\\test\\super.test.js",
       "file": "\\test\\super.test.js",
@@ -27,7 +27,7 @@
           "title": "\"before all\" hook in \"{root}\"",
           "fullTitle": "\"before all\" hook in \"{root}\"",
           "timedOut": false,
-          "duration": 1845,
+          "duration": 1826,
           "state": null,
           "speed": null,
           "pass": false,
@@ -36,8 +36,8 @@
           "context": null,
           "code": "this.timeout(10000);\nmongoose\n    .connect(MONGODB_CNX_STR)\n    .then(() => done())\n    .catch(done);",
           "err": {},
-          "uuid": "d17f5f81-d9b4-4fb9-8130-0bede603a5fa",
-          "parentUUID": "edde3e69-9d6c-469c-a3ef-29219538d55e",
+          "uuid": "101a299e-9419-4216-8d55-2f03ad4daf18",
+          "parentUUID": "ddb9cb32-914a-42ba-b085-8fc71fd64006",
           "isHook": true,
           "skipped": false
         }
@@ -47,7 +47,7 @@
           "title": "\"after all\" hook in \"{root}\"",
           "fullTitle": "\"after all\" hook in \"{root}\"",
           "timedOut": false,
-          "duration": 1103,
+          "duration": 1144,
           "state": null,
           "speed": null,
           "pass": false,
@@ -56,8 +56,8 @@
           "context": null,
           "code": "this.timeout(20000);\nPromise.all([\n    mongoose.connection.db.collection('productos').deleteMany({}),\n    mongoose.connection.db.collection('carritos').deleteMany({}),\n    mongoose.connection.db.collection('sessions').deleteMany({}),\n    mongoose.connection.db.collection('usuarios').deleteMany({}),\n])\n    .then(() => mongoose.disconnect())\n    .then(() => done())\n    .catch(done);",
           "err": {},
-          "uuid": "1a8807a7-5cd8-4952-8a9e-23ee6807e35e",
-          "parentUUID": "edde3e69-9d6c-469c-a3ef-29219538d55e",
+          "uuid": "c8db018b-4e48-4ced-b250-478cdce18163",
+          "parentUUID": "ddb9cb32-914a-42ba-b085-8fc71fd64006",
           "isHook": true,
           "skipped": false
         }
@@ -65,7 +65,7 @@
       "tests": [],
       "suites": [
         {
-          "uuid": "ad3d9531-a466-405c-81c8-fd31760b49c1",
+          "uuid": "dc787e9a-3e2d-471e-8af3-737e4a2058a0",
           "title": "Testing sesiones:",
           "fullFile": "C:\\Users\\Tap\\Desktop\\proyectoFinal2.0\\test\\super.test.js",
           "file": "\\test\\super.test.js",
@@ -74,7 +74,7 @@
           "tests": [],
           "suites": [
             {
-              "uuid": "d8f1fd92-87c4-428a-838c-008d12a3503f",
+              "uuid": "5ae4415f-63c7-475e-a51d-cd8c89d15204",
               "title": "registrarse",
               "fullFile": "C:\\Users\\Tap\\Desktop\\proyectoFinal2.0\\test\\super.test.js",
               "file": "\\test\\super.test.js",
@@ -85,39 +85,35 @@
                   "title": "registra usuario",
                   "fullTitle": "Testing sesiones: registrarse registra usuario",
                   "timedOut": false,
-                  "duration": 7,
-                  "state": "failed",
-                  "speed": null,
-                  "pass": false,
-                  "fail": true,
+                  "duration": 1060,
+                  "state": "passed",
+                  "speed": "slow",
+                  "pass": true,
+                  "fail": false,
                   "pending": false,
                   "context": null,
                   "code": "const datos = {\n    nombre: 'x',\n    apellido: 'x',\n    email: 'x@x.com',\n    password: '1234',\n    rol: 'premium',\n};\nconst res = await requester\n    .post('/api/sessions/register')\n    .send(datos);\nusuarioId = res.body.user._id;\nexpect(res.status).to.equal(201);\nexpect(res.body).to.have.property('status').that.equals('success');\nexpect(res.body)\n    .to.have.property('message')\n    .that.equals('Registro exitoso');\nexpect(res.body.user)\n    .to.have.property('email')\n    .that.equals('x@x.com');",
-                  "err": {
-                    "message": "AggregateError [ECONNREFUSED]: ",
-                    "estack": "AggregateError [ECONNREFUSED]: \n    at internalConnectMultiple (node:net:1117:18)\n    at afterConnectMultiple (node:net:1684:7)",
-                    "diff": null
-                  },
-                  "uuid": "7e9f1c19-e6f4-4582-84e4-dd04c347e23e",
-                  "parentUUID": "d8f1fd92-87c4-428a-838c-008d12a3503f",
+                  "err": {},
+                  "uuid": "6d80a0a4-2603-4d6c-84f3-031a6f304604",
+                  "parentUUID": "5ae4415f-63c7-475e-a51d-cd8c89d15204",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
-              "passes": [],
-              "failures": [
-                "7e9f1c19-e6f4-4582-84e4-dd04c347e23e"
+              "passes": [
+                "6d80a0a4-2603-4d6c-84f3-031a6f304604"
               ],
+              "failures": [],
               "pending": [],
               "skipped": [],
-              "duration": 7,
+              "duration": 1060,
               "root": false,
               "rootEmpty": false,
               "_timeout": 2000
             },
             {
-              "uuid": "c7f04c2e-3f07-4bb2-81dc-72cb404a3e84",
+              "uuid": "4e4794bd-bff9-45e1-aa9b-20e072546465",
               "title": "Iniciar sesión:",
               "fullFile": "C:\\Users\\Tap\\Desktop\\proyectoFinal2.0\\test\\super.test.js",
               "file": "\\test\\super.test.js",
@@ -128,21 +124,17 @@
                   "title": "debería fallar con credenciales incorrectas",
                   "fullTitle": "Testing sesiones: Iniciar sesión: debería fallar con credenciales incorrectas",
                   "timedOut": false,
-                  "duration": 1,
-                  "state": "failed",
-                  "speed": null,
-                  "pass": false,
-                  "fail": true,
+                  "duration": 4,
+                  "state": "passed",
+                  "speed": "fast",
+                  "pass": true,
+                  "fail": false,
                   "pending": false,
                   "context": null,
                   "code": "const credentials = {\n    username: 'usuario',\n    password: 'password',\n};\nconst { statusCode, body } = await requester\n    .post('/api/sessions')\n    .send(credentials);\nexpect(statusCode).to.equal(404);",
-                  "err": {
-                    "message": "AggregateError [ECONNREFUSED]: ",
-                    "estack": "AggregateError [ECONNREFUSED]: \n    at internalConnectMultiple (node:net:1117:18)\n    at afterConnectMultiple (node:net:1684:7)",
-                    "diff": null
-                  },
-                  "uuid": "3272eb5f-f429-4623-bbf1-46860bba8c2d",
-                  "parentUUID": "c7f04c2e-3f07-4bb2-81dc-72cb404a3e84",
+                  "err": {},
+                  "uuid": "f8c371c8-9490-4a65-9d15-de985a552fa9",
+                  "parentUUID": "4e4794bd-bff9-45e1-aa9b-20e072546465",
                   "isHook": false,
                   "skipped": false
                 },
@@ -150,40 +142,36 @@
                   "title": "debería iniciar sesión correctamente",
                   "fullTitle": "Testing sesiones: Iniciar sesión: debería iniciar sesión correctamente",
                   "timedOut": false,
-                  "duration": 1,
-                  "state": "failed",
-                  "speed": null,
-                  "pass": false,
-                  "fail": true,
+                  "duration": 249,
+                  "state": "passed",
+                  "speed": "slow",
+                  "pass": true,
+                  "fail": false,
                   "pending": false,
                   "context": null,
                   "code": "const datos = {\n    email: 'x@x.com',\n    password: '1234',\n};\nconst res = await requester.post('/api/sessions/login').send(datos);\ncarritoId = res.body.user.cart;\nexpect(res.status).to.equal(201); // Ajusta el código de estado a 200 si es necesario\nexpect(res.body)\n    .to.have.property('message')\n    .that.equals('login success');",
-                  "err": {
-                    "message": "AggregateError [ECONNREFUSED]: ",
-                    "estack": "AggregateError [ECONNREFUSED]: \n    at internalConnectMultiple (node:net:1117:18)\n    at afterConnectMultiple (node:net:1684:7)",
-                    "diff": null
-                  },
-                  "uuid": "2858f636-f7c2-40a5-9f42-dda14a3417dc",
-                  "parentUUID": "c7f04c2e-3f07-4bb2-81dc-72cb404a3e84",
+                  "err": {},
+                  "uuid": "e79ce872-39bd-4e9a-b226-9a4c63d5c4da",
+                  "parentUUID": "4e4794bd-bff9-45e1-aa9b-20e072546465",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
-              "passes": [],
-              "failures": [
-                "3272eb5f-f429-4623-bbf1-46860bba8c2d",
-                "2858f636-f7c2-40a5-9f42-dda14a3417dc"
+              "passes": [
+                "f8c371c8-9490-4a65-9d15-de985a552fa9",
+                "e79ce872-39bd-4e9a-b226-9a4c63d5c4da"
               ],
+              "failures": [],
               "pending": [],
               "skipped": [],
-              "duration": 2,
+              "duration": 253,
               "root": false,
               "rootEmpty": false,
               "_timeout": 2000
             },
             {
-              "uuid": "ff19256a-c503-46d0-8248-3b7be12c1f02",
+              "uuid": "51e7f129-6e93-4540-9d90-7e34fc6d32bf",
               "title": "cambio el rol de usuario a premium",
               "fullFile": "C:\\Users\\Tap\\Desktop\\proyectoFinal2.0\\test\\super.test.js",
               "file": "\\test\\super.test.js",
@@ -194,7 +182,7 @@
                   "title": "debería cambio el rol de usuario a premium",
                   "fullTitle": "Testing sesiones: cambio el rol de usuario a premium debería cambio el rol de usuario a premium",
                   "timedOut": false,
-                  "duration": 2,
+                  "duration": 5,
                   "state": "failed",
                   "speed": null,
                   "pass": false,
@@ -203,12 +191,12 @@
                   "context": null,
                   "code": "const res = await requester\n    .post(`/api/users/premium/${usuarioId}`)\n    .send({ user: { rol: 'usuario' } });\nexpect(res.status).to.equal(200); // Ajusta el código de estado a 200 si es necesario\nexpect(res.body)\n    .to.have.property('message')\n    .that.equals('rol actualizado a premium');",
                   "err": {
-                    "message": "AggregateError [ECONNREFUSED]: ",
-                    "estack": "AggregateError [ECONNREFUSED]: \n    at internalConnectMultiple (node:net:1117:18)\n    at afterConnectMultiple (node:net:1684:7)",
-                    "diff": null
+                    "message": "AssertionError: expected 403 to equal 200",
+                    "estack": "AssertionError: expected 403 to equal 200\n    at Context.<anonymous> (file:///C:/Users/Tap/Desktop/proyectoFinal2.0/test/super.test.js:94:35)\n    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)",
+                    "diff": "- 403\n+ 200\n"
                   },
-                  "uuid": "1d67593c-0547-4843-b023-534bc9df2f53",
-                  "parentUUID": "ff19256a-c503-46d0-8248-3b7be12c1f02",
+                  "uuid": "9422f213-5b6a-42b8-8b79-fdc17858346f",
+                  "parentUUID": "51e7f129-6e93-4540-9d90-7e34fc6d32bf",
                   "isHook": false,
                   "skipped": false
                 }
@@ -216,17 +204,17 @@
               "suites": [],
               "passes": [],
               "failures": [
-                "1d67593c-0547-4843-b023-534bc9df2f53"
+                "9422f213-5b6a-42b8-8b79-fdc17858346f"
               ],
               "pending": [],
               "skipped": [],
-              "duration": 2,
+              "duration": 5,
               "root": false,
               "rootEmpty": false,
               "_timeout": 2000
             },
             {
-              "uuid": "081180be-69d1-4c38-ad04-e4ee16561cec",
+              "uuid": "e9e6892a-5d78-4691-8c81-5609a6395fe2",
               "title": "Testing productos:",
               "fullFile": "C:\\Users\\Tap\\Desktop\\proyectoFinal2.0\\test\\super.test.js",
               "file": "\\test\\super.test.js",
@@ -237,21 +225,17 @@
                   "title": "Agregar un producto:",
                   "fullTitle": "Testing sesiones: Testing productos: Agregar un producto:",
                   "timedOut": false,
-                  "duration": 1,
-                  "state": "failed",
-                  "speed": null,
-                  "pass": false,
-                  "fail": true,
+                  "duration": 203,
+                  "state": "passed",
+                  "speed": "slow",
+                  "pass": true,
+                  "fail": false,
                   "pending": false,
                   "context": null,
                   "code": "const producto = {\n    title: 'Casa',\n    description: 'Descripción de la casa',\n    price: 4241,\n    thumbnail: 'url-de-imagen',\n    code: `unique-code-${Date.now()}`,\n    stock: 10,\n    category: 'Inmuebles',\n    status: true,\n    owner: 'user@example.com',\n};\nconst req = await requester\n    .post('/api/products')\n    .set('x-test-mode', 'true')\n    .send(producto);\nproductoId = req.body._id; // Mostrar el cuerpo de la respuesta\nexpect(req.statusCode).to.equal(200);\nexpect(req.body).to.have.property('_id');\nexpect(req.body).to.have.property('title', 'Casa');",
-                  "err": {
-                    "message": "AggregateError [ECONNREFUSED]: ",
-                    "estack": "AggregateError [ECONNREFUSED]: \n    at internalConnectMultiple (node:net:1117:18)\n    at afterConnectMultiple (node:net:1684:7)",
-                    "diff": null
-                  },
-                  "uuid": "046df2e6-8ebd-4dbc-bdc9-d06a91120c98",
-                  "parentUUID": "081180be-69d1-4c38-ad04-e4ee16561cec",
+                  "err": {},
+                  "uuid": "0b1aaee5-ce15-4cb5-91cc-931218d4f8ab",
+                  "parentUUID": "e9e6892a-5d78-4691-8c81-5609a6395fe2",
                   "isHook": false,
                   "skipped": false
                 },
@@ -259,40 +243,36 @@
                   "title": "debería obtener una lista de productos",
                   "fullTitle": "Testing sesiones: Testing productos: debería obtener una lista de productos",
                   "timedOut": false,
-                  "duration": 1,
-                  "state": "failed",
-                  "speed": null,
-                  "pass": false,
-                  "fail": true,
+                  "duration": 337,
+                  "state": "passed",
+                  "speed": "slow",
+                  "pass": true,
+                  "fail": false,
                   "pending": false,
                   "context": null,
                   "code": "const { statusCode, body } = await requester\n    .get('/api/products')\n    .set('x-test-mode', 'true');\n// Mostrar el cuerpo de la respuesta\nexpect(statusCode).to.equal(200);\nexpect(body).to.be.an('array');\nbody.forEach((producto) => {\n    expect(producto).to.have.property('_id');\n    expect(producto).to.have.property('title');\n});",
-                  "err": {
-                    "message": "AggregateError [ECONNREFUSED]: ",
-                    "estack": "AggregateError [ECONNREFUSED]: \n    at internalConnectMultiple (node:net:1117:18)\n    at afterConnectMultiple (node:net:1684:7)",
-                    "diff": null
-                  },
-                  "uuid": "e3b30cbc-6ffa-4f6f-b458-f698980530ba",
-                  "parentUUID": "081180be-69d1-4c38-ad04-e4ee16561cec",
+                  "err": {},
+                  "uuid": "575875a0-d571-4ecf-97bf-a76f364385f8",
+                  "parentUUID": "e9e6892a-5d78-4691-8c81-5609a6395fe2",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
-              "passes": [],
-              "failures": [
-                "046df2e6-8ebd-4dbc-bdc9-d06a91120c98",
-                "e3b30cbc-6ffa-4f6f-b458-f698980530ba"
+              "passes": [
+                "0b1aaee5-ce15-4cb5-91cc-931218d4f8ab",
+                "575875a0-d571-4ecf-97bf-a76f364385f8"
               ],
+              "failures": [],
               "pending": [],
               "skipped": [],
-              "duration": 2,
+              "duration": 540,
               "root": false,
               "rootEmpty": false,
               "_timeout": 2000
             },
             {
-              "uuid": "dd0e3b20-3184-4a32-b3bd-f5a4b01eb756",
+              "uuid": "f6874e6b-2746-4175-819a-ee6c1e2c20b4",
               "title": "testing de carrito",
               "fullFile": "C:\\Users\\Tap\\Desktop\\proyectoFinal2.0\\test\\super.test.js",
               "file": "\\test\\super.test.js",
@@ -303,21 +283,17 @@
                   "title": "agrega un producto al carrito",
                   "fullTitle": "Testing sesiones: testing de carrito agrega un producto al carrito",
                   "timedOut": false,
-                  "duration": 1,
-                  "state": "failed",
-                  "speed": null,
-                  "pass": false,
-                  "fail": true,
+                  "duration": 697,
+                  "state": "passed",
+                  "speed": "slow",
+                  "pass": true,
+                  "fail": false,
                   "pending": false,
                   "context": null,
                   "code": "const req = await requester\n    .post(`/api/carts/${carritoId}/producto/${productoId}`)\n    .set('x-test-mode', 'true');\nexpect(req.statusCode).to.equal(200);\nexpect(req.body).to.have.property('carrito');",
-                  "err": {
-                    "message": "AggregateError [ECONNREFUSED]: ",
-                    "estack": "AggregateError [ECONNREFUSED]: \n    at internalConnectMultiple (node:net:1117:18)\n    at afterConnectMultiple (node:net:1684:7)",
-                    "diff": null
-                  },
-                  "uuid": "c00f6379-b1ca-423a-85a0-14b641946932",
-                  "parentUUID": "dd0e3b20-3184-4a32-b3bd-f5a4b01eb756",
+                  "err": {},
+                  "uuid": "5ba8256e-e13b-439e-87bd-1ba1ef1fb843",
+                  "parentUUID": "f6874e6b-2746-4175-819a-ee6c1e2c20b4",
                   "isHook": false,
                   "skipped": false
                 },
@@ -325,40 +301,36 @@
                   "title": "elimina un producto del carrito",
                   "fullTitle": "Testing sesiones: testing de carrito elimina un producto del carrito",
                   "timedOut": false,
-                  "duration": 2,
-                  "state": "failed",
-                  "speed": null,
-                  "pass": false,
-                  "fail": true,
+                  "duration": 405,
+                  "state": "passed",
+                  "speed": "slow",
+                  "pass": true,
+                  "fail": false,
                   "pending": false,
                   "context": null,
                   "code": "const req = await requester\n    .delete(`/api/carts/${carritoId}/${productoId}`)\n    .set('x-test-mode', 'true');\nexpect(req.statusCode).to.equal(200);\nexpect(req.body).to.have.property('status');",
-                  "err": {
-                    "message": "AggregateError [ECONNREFUSED]: ",
-                    "estack": "AggregateError [ECONNREFUSED]: \n    at internalConnectMultiple (node:net:1117:18)\n    at afterConnectMultiple (node:net:1684:7)",
-                    "diff": null
-                  },
-                  "uuid": "b5cc8a97-6495-4841-9f0e-920fb87b1cae",
-                  "parentUUID": "dd0e3b20-3184-4a32-b3bd-f5a4b01eb756",
+                  "err": {},
+                  "uuid": "bc8610ef-0c64-4d16-af36-a851676d4234",
+                  "parentUUID": "f6874e6b-2746-4175-819a-ee6c1e2c20b4",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
-              "passes": [],
-              "failures": [
-                "c00f6379-b1ca-423a-85a0-14b641946932",
-                "b5cc8a97-6495-4841-9f0e-920fb87b1cae"
+              "passes": [
+                "5ba8256e-e13b-439e-87bd-1ba1ef1fb843",
+                "bc8610ef-0c64-4d16-af36-a851676d4234"
               ],
+              "failures": [],
               "pending": [],
               "skipped": [],
-              "duration": 3,
+              "duration": 1102,
               "root": false,
               "rootEmpty": false,
               "_timeout": 2000
             },
             {
-              "uuid": "688d3b3e-843b-4691-9963-dd536d8b67df",
+              "uuid": "09c4c716-ea1a-407f-8157-3e61237dfcca",
               "title": "Cerrar sesión:",
               "fullFile": "C:\\Users\\Tap\\Desktop\\proyectoFinal2.0\\test\\super.test.js",
               "file": "\\test\\super.test.js",
@@ -369,33 +341,29 @@
                   "title": "debería cerrar sesión correctamente",
                   "fullTitle": "Testing sesiones: Cerrar sesión: debería cerrar sesión correctamente",
                   "timedOut": false,
-                  "duration": 2,
-                  "state": "failed",
-                  "speed": null,
-                  "pass": false,
-                  "fail": true,
+                  "duration": 7,
+                  "state": "passed",
+                  "speed": "fast",
+                  "pass": true,
+                  "fail": false,
                   "pending": false,
                   "context": null,
                   "code": "const { statusCode, body } = await requester.delete(\n    '/api/sessions/current'\n);\nexpect(statusCode).to.equal(200);\nexpect(body).to.have.property('status', 'success');\nexpect(body).to.have.property('message', 'logout OK');",
-                  "err": {
-                    "message": "AggregateError [ECONNREFUSED]: ",
-                    "estack": "AggregateError [ECONNREFUSED]: \n    at internalConnectMultiple (node:net:1117:18)\n    at afterConnectMultiple (node:net:1684:7)",
-                    "diff": null
-                  },
-                  "uuid": "b07a240f-7bc3-4b24-b222-dc3bea9c016c",
-                  "parentUUID": "688d3b3e-843b-4691-9963-dd536d8b67df",
+                  "err": {},
+                  "uuid": "3191cefc-2ca9-48c4-b1e2-f8bca3ff8082",
+                  "parentUUID": "09c4c716-ea1a-407f-8157-3e61237dfcca",
                   "isHook": false,
                   "skipped": false
                 }
               ],
               "suites": [],
-              "passes": [],
-              "failures": [
-                "b07a240f-7bc3-4b24-b222-dc3bea9c016c"
+              "passes": [
+                "3191cefc-2ca9-48c4-b1e2-f8bca3ff8082"
               ],
+              "failures": [],
               "pending": [],
               "skipped": [],
-              "duration": 2,
+              "duration": 7,
               "root": false,
               "rootEmpty": false,
               "_timeout": 2000

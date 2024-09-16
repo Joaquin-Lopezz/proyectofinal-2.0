@@ -92,7 +92,7 @@ export async function deletecontroller(req, res, next) {
             });
         }
     } catch (error) {
-        console.log(error);
+     
         next(error);
     }
 }
@@ -111,27 +111,28 @@ export async function putcontroller(req, res, next) {
         }
 
         const producto = await productoService.productById(idProduct);
-
         if (!producto) {
             console.log('error');
             return res
                 .status(400)
-                .send({ message: 'id de producto no existe' });
+                .send({ message: 'ID de producto no existe' });
         }
+        if (Object.keys(nuevosDatos).length === 0) {
+            return res
+            .status(400)
+            .send({ message: 'ingrese datos para modicar el producto' });
+          }
 
         const productoActualizado = await productoService.updateOne(
             idProduct,
             nuevosDatos
         );
-
         if (productoActualizado.matchedCount != 1) {
             return res.status(400).send('id de producto no existe');
         }
         return res.send('el producto se actualizo');
 
     } catch (error) {
-        console.log('Error=', error.path);
-        // Extraer y formatear el mensaje de error
         let mensajeError = 'Ocurrió un error al actualizar el producto';
         if (error.name === 'StrictModeError') {
             return next(
@@ -146,7 +147,7 @@ export async function putcontroller(req, res, next) {
         } else if (error.name === 'CastError') {
             mensajeError = `Error de formato: ${error.message}`;
         } else {
-            mensajeError = error.message;
+            next(error);
         }
 
         // Enviar respuesta con mensaje explicativo

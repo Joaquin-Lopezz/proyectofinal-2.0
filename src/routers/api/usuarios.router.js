@@ -17,17 +17,17 @@ import {
 
 export const usuariosRouter = Router();
 //agregar solologeadosAPi
-usuariosRouter.put('/', newDatos);
+usuariosRouter.put('/',soloLogueadosApi , newDatos);
 
-usuariosRouter.post('/premium/:uid', premium); // bien
+usuariosRouter.post('/premium/:uid',soloLogueadosApi, premium); // bien
 
-usuariosRouter.get('/current', getUserLogeado); //bien
+usuariosRouter.get('/current',soloLogueadosApi  ,getUserLogeado); //bien
 
-usuariosRouter.post('/recuperarPassword', editUser); //funciona
+usuariosRouter.post('/recuperarPassword',soloLogueadosApi ,editUser); //funciona
 
-usuariosRouter.post('/newPassword', newPassword); //funciona , eliminar el token cuando se acredite
+usuariosRouter.post('/newPassword',soloLogueadosApi, newPassword); //funciona , eliminar el token cuando se acredite
 
-usuariosRouter.post('/documents', documentacion); // funciona verifiar en profundidad al final.
+usuariosRouter.post('/documents',soloLogueadosApi, documentacion); // funciona verifiar en profundidad al final.
 
 usuariosRouter.get('/allUsers', autorizacionAdmin, allUsers); //bien funciona solo puede entrar el admin
 
