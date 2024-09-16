@@ -12,9 +12,6 @@ webRouter.get('/', (req, res) => {
     return res.redirect('/login');
 });
 
-
-
-
 webRouter.get('/loggerTest', (req, res) => {
     req.logger.debug('debug log ');
     req.logger.http('http log');
@@ -25,7 +22,3 @@ webRouter.get('/loggerTest', (req, res) => {
 
     res.send('prueba de logs.');
 });
-
-
-
-

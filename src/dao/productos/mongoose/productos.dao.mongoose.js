@@ -1,4 +1,3 @@
-
 import { toPOJO } from '../../utils.js';
 
 export class productoDaoMongoose {
@@ -25,12 +24,14 @@ export class productoDaoMongoose {
     }
 
     async updateOne(id, datos) {
-        const productosActualizados = await this.productosModel.updateOne(
-            id,
-            datos
-        );
-
-        return productosActualizados;
+       
+            const productosActualizados = await this.productosModel.updateOne(
+                { _id: id },
+                datos, 
+                { runValidators: true } 
+            );
+            return productosActualizados;
+        
+      
     }
-
 }

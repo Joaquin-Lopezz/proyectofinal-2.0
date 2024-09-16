@@ -1,25 +1,52 @@
+import mongoose from 'mongoose';
 import { carritoService } from '../services/carrito.service.js';
 import { productoService } from '../services/productos.service.js';
 import { ticketService } from '../services/ticket.service.js';
 import { CustomError } from '../utils/CustumErrors.js';
 import { TIPOS_ERROR } from '../utils/EError.js';
 import { logger } from '../utils/logger.js';
+import { usuariosService } from '../services/usuarios.service.js';
 
 export async function getCart(req, res, next) {
     try {
         const cartId = req.params.cid;
+
+        if (!mongoose.Types.ObjectId.isValid(cartId)) {
+            return next(
+                CustomError.createError(
+                    `error`,
+                    `400`,
+                    `Id de carrito invalido`,
+                    TIPOS_ERROR.ARGUMENTOS_INVALIDOS
+                )
+            );
+        }
+
         const cart = await carritoService.findByIdCart(cartId);
+        if (!cart) {
+            return next(
+                CustomError.createError(
+                    `error`,
+                    `404`,
+                    `no se encontro carrito con id ${cartId}`,
+                    TIPOS_ERROR.NOT_FOUND
+                )
+            );
+        }
         res.setHeader('Content-Type', 'application/json');
         res.status(200).json({ cart });
     } catch (error) {
-        console.log(error);
+        next(error);
     }
 }
 
 export async function postCartsController(req, res, next) {
     try {
         const userId = req.params.userId;
-        let carrito = await carritoService.findOne({ usuario: userId });
+
+        let usuario = await usuariosService.findById(userId);
+
+        let carrito = await carritoService.findOne(usuario.cart);
         res.setHeader('Content-Type', 'application/json');
         res.status(200).json({ carrito });
     } catch (error) {
@@ -35,24 +62,20 @@ export async function postCartsController(req, res, next) {
 }
 
 export async function addProductCart(req, res, next) {
-  
     const carritoId = req.params.cid;
     const idProduct = req.params.pid;
-    console.log(carritoId)
-    console.log(idProduct)
+
     try {
-        if (!idProduct) {
-            return next(
-                CustomError.createError(
-                    'Error en el envío del producto',
-                    null,
-                    'No se recibió el producto',
-                    TIPOS_ERROR.ARGUMENTOS_INVALIDOS
-                )
-            );
+        if (!mongoose.Types.ObjectId.isValid(carritoId)) {
+            return res.status(400).json({ message: 'ID de carrito inválido' });
+        }
+
+        if (!mongoose.Types.ObjectId.isValid(idProduct)) {
+            return res.status(400).json({ message: 'ID de producto inválido' });
         }
 
         const producto = await productoService.productById(idProduct);
+
         const carrito = await carritoService.findByIdCart(carritoId);
         if (!carrito) {
             return next(
@@ -75,11 +98,22 @@ export async function addProductCart(req, res, next) {
             );
         }
 
+        if (carrito.email === producto.owner) {
+            return next(
+                CustomError.createError(
+                    'El producto pertenece al usuario, no puedo agregarlo al carrito',
+                    'Operación no permitida',
+                    'Conflicto',
+                    TIPOS_ERROR.CONFLICT
+                )
+            );
+        }
         await carritoService.addProductCart(carrito, producto);
 
         res.setHeader('Content-Type', 'application/json');
         res.status(200).json({ carrito });
     } catch (error) {
+        console.log(error);
         req.logger.error(error.message);
         next(error);
     }
@@ -90,7 +124,7 @@ export async function compraCarrito(req, res, next) {
     const carrito = await carritoService.findByIdCart(carritoId);
 
     try {
-        if(carrito.products.length == 0){
+        if (carrito.products.length == 0) {
             return res.status(200).json({
                 status: 'error',
                 payload: {
@@ -100,33 +134,29 @@ export async function compraCarrito(req, res, next) {
             });
         }
 
-
-
         const amount = await carritoService.getQuantityStock(
             carritoId,
             carrito
         );
-      
+
         if (!amount) {
-            return res.status(200).json({
-                status: 'error',
-                payload: {
-                    carritoId: carritoId,
-                    mensaje: 'No hay suficiente stock para completar la compra',
-                },
-            });
+            return next(CustomError.createError(
+                'error',
+                '400',
+                'No hay suficiente stock para completar la compra',
+                TIPOS_ERROR.ARGUMENTOS_INVALIDOS
+            ))
         }
- 
+
         const ticket = await ticketService.createTicket({
             amount: amount,
             purchaser: carrito.email,
         });
-    
 
         res.status(200).json({
             status: 'success',
             payload: {
-                ticket:ticket,
+                ticket: ticket,
                 carritoId: carritoId,
                 amount: amount,
                 mensaje: 'Compra realizada con éxito',
@@ -143,6 +173,13 @@ export async function deleteProduct(req, res, next) {
     const carritoId = req.params.cid;
     const idProduct = req.params.pid;
     try {
+        if (!mongoose.Types.ObjectId.isValid(carritoId)) {
+            return res.status(400).json({ message: 'ID de carrito inválido' });
+        }
+
+        if (!mongoose.Types.ObjectId.isValid(idProduct)) {
+            return res.status(400).json({ message: 'ID de producto inválido' });
+        }
         const carrito = await carritoService.findByIdCart(carritoId);
         if (!carrito) {
             return next(
@@ -155,7 +192,7 @@ export async function deleteProduct(req, res, next) {
             );
         }
         const producto = await carritoService.deleteProduct(carrito, idProduct);
-        if (typeof producto === 'undefined') {
+        if (!producto) {
             return next(
                 CustomError.createError(
                     `el producto con Id:${idProduct} no existe `,
@@ -166,7 +203,15 @@ export async function deleteProduct(req, res, next) {
             );
         }
 
-        res.send(carrito);
+        res.status(200).json({
+            status: 'success',
+            payload: {
+                mensaje: 'se elimino el producto del carrito ',
+                cartId: carritoId,
+                productoId: idProduct,
+                carrito: carrito,
+            },
+        });
     } catch (error) {
         next(error);
     }

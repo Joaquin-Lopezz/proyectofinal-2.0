@@ -8,12 +8,11 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 
-
 // Define la ruta para la carpeta static
-const staticDir = path.resolve('public');
+const staticDir = path.resolve(__dirname, '..', 'public'); // Subir un nivel para apuntar a src
 
 // Define las rutas para las carpetas necesarias dentro de 'static'
-const uploadsDir = path.join(__dirname, 'uploads');
+const uploadsDir = path.join(staticDir, 'uploads');
 const profilesDir = path.join(staticDir, 'profiles');
 const productsDir = path.join(staticDir, 'products');
 const documentsDir = path.join(uploadsDir, 'documents');

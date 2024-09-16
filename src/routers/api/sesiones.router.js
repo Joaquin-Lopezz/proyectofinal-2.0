@@ -1,19 +1,36 @@
 import { Router } from 'express';
 import { soloLogueadosApi } from '../../middlewares/autorizaciones.js';
 import passport from 'passport';
-import { crearUsuario } from '../../controllers/usuarios.controllers.js';
 
 export const sesionesRouter = Router();
 
 //REGISTER
-
-sesionesRouter.post('/register', crearUsuario);
+//crearUsuario registro de aplicaion
+sesionesRouter.post(
+    '/register',
+    passport.authenticate('registro', {
+        failWithError: true,
+        failureMessage: true,
+    }),
+    async (req, res) => {
+        res.status(201).json({
+            status: 'success',
+            message: 'Registro exitoso',
+            user: req.user,
+        });
+    },
+    (error, req, res, next) => {
+        res.status(401).json({
+            status: 'error',
+            message: 'error al registrar usuario',
+        });
+    }
+);
 
 //LOGIN
 sesionesRouter.post(
     '/login',
     passport.authenticate('loginLocal', { failWithError: true }),
-
     async (req, res, next) => {
         res.status(201).json({
             status: 'success',
@@ -22,6 +39,8 @@ sesionesRouter.post(
         });
     },
     (error, req, res, next) => {
+  
+        console.error('Error en autenticación:', error);
         res.status(401).json({ status: 'error', message: error.message });
     }
 );

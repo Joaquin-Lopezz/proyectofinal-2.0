@@ -6,17 +6,16 @@ import {
     postcontroller,
     putcontroller,
 } from '../../controllers/productos.controllers.js';
-
+import {ownerAdmin, autorizacionAdmin, premium,soloLogueadosApi } from '../../middlewares/autorizaciones.js';
 
 export const productosRouter = Router();
 
-productosRouter.get('/', getcontroller);
+productosRouter.get('/', soloLogueadosApi,getcontroller); 
 
-productosRouter.post('/', postcontroller);
+productosRouter.post('/',soloLogueadosApi,premium,postcontroller);  
 
-productosRouter.delete('/:pid', deletecontroller);
+productosRouter.delete('/:pid',soloLogueadosApi,ownerAdmin, deletecontroller);  
 
-productosRouter.put('/:pid', putcontroller);
-
+productosRouter.put('/:pid',soloLogueadosApi, autorizacionAdmin, putcontroller); 
 //crear funcion para mocking
 productosRouter.get('/mockingproducts',generatemock );

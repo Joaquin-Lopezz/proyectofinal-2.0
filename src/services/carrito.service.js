@@ -11,15 +11,18 @@ class CarritoService {
         return await carritoDao.createCart(criterio);
     }
 
-    async findOne(usuarioId) {
+    async findOne(cartId) {
         try {
-            let carrito = await carritoDao.findCart(usuarioId);
-            if (!carrito) {
+            let carrito = await carritoDao.findCart({ _id: cartId.usuario });
+            
+             if (!carrito) {
                 carrito = await carritoDao.create({
-                    email:usuarioId.email,
+                    email:cartId.email,
                     products: [],
-                });
+                }); 
             }
+     
+           
             return carrito;
         } catch (error) {
             if (error instanceof CustomError) {
@@ -44,10 +47,8 @@ class CarritoService {
 
     async addProductCart(carrito, productoAdd) {
         try {
-            
             const productoExistente = carrito.products.find(
-                (itemProducto) =>
-                    itemProducto.idProduct == productoAdd['_id']
+                (itemProducto) => itemProducto.idProduct == productoAdd['_id']
             );
             if (productoExistente) {
                 productoExistente.quantity += 1;
@@ -59,14 +60,13 @@ class CarritoService {
                     description: productoAdd['description'],
                     thumbnail: productoAdd['thumbnail'],
                 };
-    
+
                 carrito.products.push(aux);
             }
             await carrito.save();
         } catch (error) {
-            console.log(error)
+            console.log(error);
         }
-       
     }
 
     async getQuantityStock(idCarrito, productosCarritos) {

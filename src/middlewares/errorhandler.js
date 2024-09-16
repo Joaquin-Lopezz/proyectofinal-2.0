@@ -6,13 +6,27 @@ export const errorHandler = (error, req, res, next) => {
     logger.error(`${error.message}`);
 
     switch (error.code) {
-        case TIPOS_ERROR.AUTENTICATION || TIPOS_ERROR.AUTORIZACION:
+        case TIPOS_ERROR.AUTENTICATION:
             res.setHeader('Content-Type', 'application/json');
             return res.status(401).json({ error: `Credenciales incorrectas` });
+
+        case TIPOS_ERROR.AUTORIZACION:
+            res.setHeader('Content-Type', 'application/json');
+            return res
+                .status(403)
+                .json({
+                    error: `no esta autorizado para realizar esta accion`,
+                });
 
         case TIPOS_ERROR.ARGUMENTOS_INVALIDOS || TIPOS_ERROR.PRODUCTO_EXISTENTE:
             res.setHeader('Content-Type', 'application/json');
             return res.status(400).json({ error: `${error.message}` });
+
+        case TIPOS_ERROR.CONFLICT:
+            res.setHeader('Content-Type', 'application/json');
+            return res.status(409).json({
+                error: `${error.message}: El producto pertenece al usuario, no puedo agregarlo al carrito`,
+            });
 
         case TIPOS_ERROR.NOT_FOUND:
             res.setHeader('Content-Type', 'application/json');

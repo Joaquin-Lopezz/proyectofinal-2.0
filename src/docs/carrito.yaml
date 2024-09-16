@@ -5,20 +5,20 @@ info:
   version: 1.0.0
 
 paths:
-  /api/carts/{userId}:
-    post:
+  /api/carts/{cartId}:
+    get:
       tags:
         - carrito
       summary: Obtiene el carrito de un usuario.
       description: Retorna el carrito asociado al usuario dado su ID.
       parameters:
-        - name: userId
+        - name: cartId
           in: path
           required: true
-          description: ID único del usuario cuyo carrito se desea obtener.
+          description: ID único del carrito que pertenece a un usuario.
           schema:
             type: string
-            example: "60f73f1c8d2a8b6f1c9c5d7a"
+            example: "66e61be7acf825b090c90c85"
       responses:
         '200':
           description: Un objeto JSON con el carrito del usuario.
@@ -27,9 +27,63 @@ paths:
               schema:
                 type: object
                 properties:
-                  carrito:
+                  cart:
                     type: object
                     description: El carrito del usuario.
+                    properties:
+                      _id:
+                        type: string
+                        description: ID único del carrito.
+                        example: "66e61be7acf825b090c90c85"
+                      email:
+                        type: string
+                        description: Correo electrónico asociado al carrito.
+                        example: "a@a.com"
+                      products:
+                        type: array
+                        description: Lista de productos en el carrito.
+                        items:
+                          type: object
+                          properties:
+                            idProduct:
+                              type: string
+                              description: ID único del producto.
+                            title:
+                              type: string
+                              description: El título del producto.
+                            price:
+                              type: string
+                              description: El precio del producto.
+                            thumbnail:
+                              type: string
+                              description: La imagen del producto.
+                            description:
+                              type: string
+                              description: Descripción del producto.
+                            quantity:
+                              type: integer
+                              description: La cantidad del producto en el carrito.
+                   
+        '400':
+          description: "ARGUMENTOS_INVALIDOS"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Id de carrito invalido"
+        '404':
+          description: "NOT_FOUND"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "no se encontro carrito con id 66e61be7acf825b090c90c8c"
         '500':
           description: Error interno del servidor.
           content:
@@ -41,37 +95,125 @@ paths:
                     type: string
                     example: "Error interno del servidor."
 
-  /api/carts/addProduct/{cid}:
+  /api/carts/{userId}:
+    post:
+      tags:
+        - carrito
+      summary: Obtiene el carrito del usuario.
+      description: Obtiene el carrito asociado al usuario dado su ID.
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          description: ID único del usuario para obtener su carrito.
+          schema:
+            type: string
+            example: "66e61be7acf825b090c90c85"
+      responses:
+        '200':
+          description: El carrito del usuario.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  carrito:
+                    type: object
+                    description: El carrito del usuario.
+                    properties:
+                      _id:
+                        type: string
+                        description: ID único del carrito.
+                        example: "66e61be7acf825b090c90c85"
+                      email:
+                        type: string
+                        description: El correo electrónico del usuario propietario del carrito.
+                        example: "a@a.com"
+                      products:
+                        type: array
+                        description: Lista de productos en el carrito.
+                        items:
+                          type: object
+                          properties:
+                            idProduct:
+                              type: string
+                              description: ID único del producto.
+                              example: "66e654595f4b9d42719316bb"
+                            title:
+                              type: string
+                              description: El título del producto.
+                              example: "casa"
+                            price:
+                              type: string
+                              description: El precio del producto.
+                              example: "500"
+                            thumbnail:
+                              type: string
+                              description: La imagen del producto.
+                              example: ""
+                            description:
+                              type: string
+                              description: Descripción del producto.
+                              example: "dsfa"
+                            quantity:
+                              type: integer
+                              description: La cantidad del producto en el carrito.
+                              example: 1
+        '400':
+          description: ID de usuario inválido o error en la petición.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "ID de usuario inválido"
+        '404':
+          description: No se encontró el carrito o el usuario.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "No se encontró el carrito"
+        '500':
+          description: Error interno del servidor.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Error interno del servidor"
+
+  /api/carts/{cartId}/products/{productId}:
     post:
       tags:
         - carrito
       summary: Agrega un producto al carrito.
-      description: Añade un producto al carrito especificado por su ID.
+      description: Agrega el producto especificado al carrito asociado al ID del carrito.
       parameters:
-        - name: cid
+        - name: cartId
           in: path
           required: true
-          description: ID único del carrito al que se desea añadir el producto.
+          description: ID único del carrito.
           schema:
             type: string
-            example: "60f73f1c8d2a8b6f1c9c5d7a"
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                producto:
-                  type: object
-                  description: Los datos del producto a añadir.
-                  example:
-                    title: "Teclado"
-                    price: 50
-                    quantity: 2
+            example: "66e61be7acf825b090c90c85"
+        - name: productId
+          in: path
+          required: true
+          description: ID único del producto a agregar.
+          schema:
+            type: string
+            example: "66e654595f4b9d42719316bb"
       responses:
         '200':
-          description: Un objeto JSON con el carrito actualizado.
+          description: El producto fue agregado exitosamente al carrito.
           content:
             application/json:
               schema:
@@ -79,62 +221,96 @@ paths:
                 properties:
                   carrito:
                     type: object
-                    description: El carrito actualizado.
+                    description: El carrito actualizado con el producto agregado.
+                    properties:
+                      _id:
+                        type: string
+                        description: ID único del carrito.
+                        example: "66e61be7acf825b090c90c85"
+                      email:
+                        type: string
+                        description: El correo electrónico del usuario propietario del carrito.
+                        example: "a@a.com"
+                      products:
+                        type: array
+                        description: Lista de productos en el carrito.
+                        items:
+                          type: object
+                          properties:
+                            idProduct:
+                              type: string
+                              description: ID único del producto.
+                              example: "66e654595f4b9d42719316bb"
+                            title:
+                              type: string
+                              description: El título del producto.
+                              example: "casa"
+                            price:
+                              type: string
+                              description: El precio del producto.
+                              example: "500"
+                            thumbnail:
+                              type: string
+                              description: La imagen del producto.
+                              example: ""
+                            description:
+                              type: string
+                              description: Descripción del producto.
+                              example: "dsfa"
+                            quantity:
+                              type: integer
+                              description: La cantidad de este producto en el carrito.
+                              example: 1
         '400':
-          description: Error en el envío del producto o en la actualización del carrito.
+          description: ID de carrito o producto inválido.
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  error:
+                  message:
                     type: string
-                    example: "No se recibió el producto."
-        '500':
-          description: Error interno del servidor.
+                    example: "ID de carrito inválido"
+                    
+        '404':
+          description: El carrito o el producto no fue encontrado.
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  error:
+                  message:
                     type: string
-                    example: "Error interno del servidor."
+                    example: "No se encontró el carrito"
+  
+        '409':
+          description: Conflicto al agregar el producto al carrito.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "El producto pertenece al usuario, no puedo agregarlo al carrito"
 
-  /api/carts/purchase/{cid}:
+  /api/carts/{cartId}/purchase:
     post:
       tags:
         - carrito
-      summary: Realiza una compra del carrito.
-      description: Procesa la compra del carrito especificado por su ID y retorna un mensaje de éxito.
+      summary: Realiza la compra del carrito.
+      description: Realiza la compra del carrito asociado al ID proporcionado y retorna un ticket de compra si todo está en orden.
       parameters:
-        - name: cid
+        - name: cartId
           in: path
           required: true
           description: ID único del carrito a comprar.
           schema:
             type: string
-            example: "60f73f1c8d2a8b6f1c9c5d7a"
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: array
-              items:
-                type: object
-                properties:
-                  productId:
-                    type: string
-                    description: ID del producto en el carrito.
-                    example: "60f73f1c8d2a8b6f1c9c5d7b"
-                  quantity:
-                    type: number
-                    description: Cantidad del producto.
-                    example: 1
+            example: "66e61be7acf825b090c90c85"
       responses:
         '200':
-          description: Mensaje confirmando la compra del carrito.
+          description: Compra realizada con éxito o error si el carrito está vacío o hay problemas con el stock.
           content:
             application/json:
               schema:
@@ -142,54 +318,72 @@ paths:
                 properties:
                   status:
                     type: string
+                    description: El estado de la compra.
                     example: "success"
                   payload:
                     type: object
                     properties:
-                      carritoId:
-                        type: string
-                        example: "60f73f1c8d2a8b6f1c9c5d7a"
-                      amount:
-                        type: number
-                        example: 150
-                      mensaje:
-                        type: string
-                        example: "Compra realizada con éxito."
-        '500':
-          description: Error interno del servidor.
+                      ticket:
+                        type: object
+                        description: Información del ticket de compra.
+                        properties:
+                          amount:
+                            type: integer
+                            description: El monto total de la compra.
+                            example: 1000
+                          purchaser:
+                            type: string
+                            description: Correo electrónico del comprador.
+                            example: "a@a.com"
+                          _id:
+                            type: string
+                            description: ID único del ticket.
+                            example: "66e709a1fe8ab96b51be96a4"
+                          code:
+                            type: string
+                            description: Código del ticket.
+                            example: "u80ap9i6"
+                          purchase_datetime:
+                            type: string
+                            format: date-time
+                            description: Fecha y hora de la compra.
+                            example: "2024-09-15T16:21:53.657Z"
+        '400':
+          description: ARGUMENTOS_INVALIDOS.
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  error:
+                  message:
                     type: string
-                    example: "Error interno del servidor."
+                    example: "No hay suficiente stock para completar la compra"
+                    
 
-  /api/carts/{cid}/deleteProduct/{pid}:
+  /api/carts/{cartId}/{productId}:
     delete:
       tags:
         - carrito
       summary: Elimina un producto del carrito.
-      description: Elimina un producto del carrito especificado por su ID de carrito y ID de producto.
+      description: Elimina el producto especificado del carrito asociado al ID del carrito.
       parameters:
-        - name: cid
+        - name: cartId
           in: path
           required: true
-          description: ID único del carrito del cual se eliminará el producto.
+          description: ID único del carrito.
           schema:
             type: string
-            example: "60f73f1c8d2a8b6f1c9c5d7a"
-        - name: pid
+            example: "66e61be7acf825b090c90c85"
+        - name: productId
           in: path
           required: true
           description: ID único del producto a eliminar.
           schema:
             type: string
-            example: "60f73f1c8d2a8b6f1c9c5d7b"
+            example: "66e654595f4b9d42719316bb"
       responses:
         '200':
-          description: Un objeto JSON con el carrito actualizado.
+          description: El producto fue eliminado exitosamente del carrito.
           content:
             application/json:
               schema:
@@ -197,17 +391,66 @@ paths:
                 properties:
                   carrito:
                     type: object
-                    description: El carrito actualizado.
-        '404':
-          description: El carrito o el producto no fueron encontrados.
+                    description: El carrito actualizado sin el producto eliminado.
+                    properties:
+                      _id:
+                        type: string
+                        description: ID único del carrito.
+                        example: "66e61be7acf825b090c90c85"
+                      email:
+                        type: string
+                        description: El correo electrónico del usuario propietario del carrito.
+                        example: "a@a.com"
+                      products:
+                        type: array
+                        description: Lista de productos en el carrito después de la eliminación.
+                        items:
+                          type: object
+                          properties:
+                            idProduct:
+                              type: string
+                              description: ID único del producto.
+                              example: "66e654595f4b9d42719316bb"
+                            title:
+                              type: string
+                              description: El título del producto.
+                              example: "casa"
+                            price:
+                              type: string
+                              description: El precio del producto.
+                              example: "500"
+                            thumbnail:
+                              type: string
+                              description: La imagen del producto.
+                              example: ""
+                            description:
+                              type: string
+                              description: Descripción del producto.
+                              example: "dsfa"
+                            quantity:
+                              type: integer
+                              description: La cantidad de este producto en el carrito.
+                              example: 1
+        '400':
+          description: ID de carrito o producto inválido.
           content:
             application/json:
               schema:
                 type: object
                 properties:
-                  error:
+                  message:
                     type: string
-                    example: "El carrito con Id: 60f73f1c8d2a8b6f1c9c5d7a no existe."
+                    example: "ID de carrito o producto inválido"
+        '404':
+          description: El carrito o el producto no fue encontrado.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "No se encontró el carrito o el producto"
         '500':
           description: Error interno del servidor.
           content:
@@ -217,4 +460,4 @@ paths:
                 properties:
                   error:
                     type: string
-                    example: "Error interno del servidor."
+                    example: "Error interno del servidor"

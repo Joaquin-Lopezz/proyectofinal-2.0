@@ -1,3 +1,5 @@
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 export const PORT = 8080;
 export const MONGODB_CNX_STR =
     'mongodb+srv://UserCoder:YzyzdHbr8N94AFkK@cluster0.ixumopf.mongodb.net/proyectoFinal2?retryWrites=true&w=majority&appName=Cluster0';
@@ -29,3 +31,7 @@ export const swaggerOptions = {
     },
     apis: [`src/docs/*.yaml`],
 };
+
+
+const __filename = fileURLToPath(import.meta.url);
+export const __dirname = dirname(__filename);

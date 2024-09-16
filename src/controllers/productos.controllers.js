@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import { eliminacionCaracteresNoDesados } from '../middlewares/validacionProducto.js';
 import { productoService } from '../services/productos.service.js';
 import { CustomError } from '../utils/CustumErrors.js';
@@ -90,9 +91,6 @@ export async function deletecontroller(req, res, next) {
                 message: `Se eliminó el producto con Id: ${id}`,
             });
         }
-        return res
-            .status(404)
-            .send(`no se encontro ningun producto con Id: ${id}`);
     } catch (error) {
         console.log(error);
         next(error);
@@ -100,27 +98,82 @@ export async function deletecontroller(req, res, next) {
 }
 
 export async function putcontroller(req, res, next) {
-    const idProduct = req.params.pid;
-    const nuevosDatos = req.body;
-    delete nuevosDatos._id;
-    if ('code' in nuevosDatos) {
-        return res
-            .status(400)
-            .send('No se permite modificar los campos id y code.');
-    }
     try {
+        const idProduct = req.params.pid;
+        const nuevosDatos = req.body;
+        if ('code' in nuevosDatos) {
+            return res
+                .status(400)
+                .send('No se permite modificar los campos id y code.');
+        }
+        if (!mongoose.Types.ObjectId.isValid(idProduct)) {
+            return res.status(400).json({ message: 'ID de producto inválido' });
+        }
+
+        const producto = await productoService.productById(idProduct);
+
+        if (!producto) {
+            console.log('error');
+            return res
+                .status(400)
+                .send({ message: 'id de producto no existe' });
+        }
+
         const productoActualizado = await productoService.updateOne(
-            { _id: idProduct },
+            idProduct,
             nuevosDatos
         );
+
         if (productoActualizado.matchedCount != 1) {
             return res.status(400).send('id de producto no existe');
         }
         return res.send('el producto se actualizo');
-    } catch (error) {}
+
+    } catch (error) {
+        console.log('Error=', error.path);
+        // Extraer y formatear el mensaje de error
+        let mensajeError = 'Ocurrió un error al actualizar el producto';
+        if (error.name === 'StrictModeError') {
+            return next(
+                CustomError.createError(
+                    'Datos de producto inválidos',
+                    'error',
+                    `Error de actualización: algunos campos no están definidos en el esquema. campo : ${error.path}`,
+                    TIPOS_ERROR.CONFLICT
+                )
+            );
+                
+        } else if (error.name === 'CastError') {
+            mensajeError = `Error de formato: ${error.message}`;
+        } else {
+            mensajeError = error.message;
+        }
+
+        // Enviar respuesta con mensaje explicativo
+        res.status(400).send({ error: mensajeError });
+    }
 }
 
 export async function generatemock(req, res, next) {
     const products = generateProducts();
     res.send(products);
+}
+
+export async function onwerProduct(email, productoId) {
+    try {
+        const producto = await productoService.productById(productoId);
+
+        if (!producto) {
+            return { message: 'id de producto no existe' };
+        }
+
+        if (producto.owner !== email) {
+            return { message: 'no owner' };
+        }
+
+        return { message: 'ok' };
+    } catch (error) {
+        console.error('Error en onwerProduct:', error);
+        return { message: 'error' };
+    }
 }

@@ -1,23 +1,34 @@
 import { Router } from 'express';
-import { soloLogueadosApi } from '../../middlewares/autorizaciones.js';
-import {deleteUsers,allUsers,newDatos,documentacion, premium, newPassword, crearUsuario, editUser, getUserLogeado } from '../../controllers/usuarios.controllers.js';
+import {
+    autorizacionAdmin,
+    soloLogueadosApi,
+} from '../../middlewares/autorizaciones.js';
+import {
+    deleteUsers,
+    allUsers,
+    newDatos,
+    documentacion,
+    premium,
+    newPassword,
+    crearUsuario,
+    editUser,
+    getUserLogeado,
+} from '../../controllers/usuarios.controllers.js';
 
 export const usuariosRouter = Router();
+//agregar solologeadosAPi
+usuariosRouter.put('/', newDatos);
 
+usuariosRouter.post('/premium/:uid', premium); // bien
 
+usuariosRouter.get('/current', getUserLogeado); //bien
 
-usuariosRouter.put('/',newDatos)
+usuariosRouter.post('/recuperarPassword', editUser); //funciona
 
-usuariosRouter.post('/premium',premium)
+usuariosRouter.post('/newPassword', newPassword); //funciona , eliminar el token cuando se acredite
 
-usuariosRouter.get('/current', soloLogueadosApi, getUserLogeado)
+usuariosRouter.post('/documents', documentacion); // funciona verifiar en profundidad al final.
 
-usuariosRouter.post('/recuperarPassword', editUser);
+usuariosRouter.get('/allUsers', autorizacionAdmin, allUsers); //bien funciona solo puede entrar el admin
 
-usuariosRouter.post('/newPassword',newPassword)
-
-usuariosRouter.post('/:email/documents', documentacion)
-
-usuariosRouter.get('/allUsers',allUsers)
-
-usuariosRouter.delete('/delete',deleteUsers)
+usuariosRouter.delete('/delete', autorizacionAdmin, deleteUsers); //funcinoa

@@ -75,54 +75,50 @@ paths:
     post:
       tags:
         - productos
-      summary: Agrega un nuevo producto.
-      description: Crea un nuevo producto en la base de datos si cumple con los valores requeridos.
+      summary: Crea un nuevo producto.
+      description: Crea un nuevo producto en el sistema. Requiere autenticación y privilegios de usuario premium. Permite la carga de una imagen de producto.
       requestBody:
-        required: true
         content:
-          application/json:
+          multipart/form-data:
             schema:
               type: object
               properties:
                 title:
                   type: string
-                  description: Título del producto.
-                  example: "Producto Ejemplo"
+                  description: El título del producto.
+                  example: "Laptop"
                 description:
                   type: string
-                  description: Descripción del producto.
-                  example: "Descripción detallada del producto."
+                  description: La descripción del producto.
+                  example: "Una laptop potente."
                 price:
                   type: number
-                  description: Precio del producto.
-                  example: 500
+                  format: float
+                  description: El precio del producto.
+                  example: 1200.50
                 thumbnail:
                   type: string
-                  description: URL o ruta de la imagen del producto.
-                  example: "/thumbnail.jpg"
+                  description: La ruta de la imagen del producto (se asigna automáticamente si se carga una imagen).
+                  example: "/public/uploads/images/product1.jpg"
                 code:
                   type: string
-                  description: Código único del producto.
+                  description: El código único del producto.
                   example: "ABC123"
                 stock:
-                  type: number
-                  description: Cantidad disponible del producto.
-                  example: 100
+                  type: integer
+                  description: La cantidad de stock disponible del producto.
+                  example: 10
                 category:
                   type: string
-                  description: Categoría del producto.
-                  example: "Electrónica"
-                owner:
+                  description: La categoría a la que pertenece el producto.
+                  example: "Electronics"
+                productImage:
                   type: string
-                  description: Propietario del producto.
-                  example: "admin"
-                status:
-                  type: string
-                  description: Estado del producto.
-                  example: "true"
+                  format: binary
+                  description: La imagen del producto a cargar.
       responses:
         '200':
-          description: El producto creado.
+          description: El producto ha sido creado exitosamente.
           content:
             application/json:
               schema:
@@ -131,45 +127,64 @@ paths:
                   _id:
                     type: string
                     description: ID único del producto creado.
-                    example: "2yvejxhatr"
+                    example: "66e71af42787d349b1152aaf"
                   title:
                     type: string
-                    description: Título del producto.
-                    example: "Producto Ejemplo"
+                    description: El título del producto.
+                    example: "casa"
                   description:
                     type: string
-                    description: Descripción del producto.
-                    example: "Descripción detallada del producto."
+                    description: La descripción del producto.
+                    example: "dsfa"
                   price:
                     type: number
-                    description: Precio del producto.
+                    format: float
+                    description: El precio del producto.
                     example: 500
                   thumbnail:
                     type: string
-                    description: URL o ruta de la imagen del producto.
-                    example: "/thumbnail.jpg"
+                    description: La ruta de la imagen del producto.
+                    example: "/public/uploads/images/product1.jpg"
                   code:
                     type: string
-                    description: Código único del producto.
-                    example: "ABC123"
+                    description: El código único del producto.
+                    example: "fdaf"
                   stock:
-                    type: number
-                    description: Cantidad disponible del producto.
-                    example: 100
+                    type: integer
+                    description: La cantidad de stock disponible del producto.
+                    example: 20
                   category:
                     type: string
-                    description: Categoría del producto.
-                    example: "Electrónica"
+                    description: La categoría a la que pertenece el producto.
+                    example: "dfaf"
                   owner:
                     type: string
-                    description: Propietario del producto.
-                    example: "admin"
+                    description: El correo electrónico del propietario del producto.
+                    example: "a@a.com"
                   status:
                     type: string
-                    description: Estado del producto.
+                    description: El estado del producto, en formato booleano como cadena.
                     example: "true"
+        '403':
+          description: Acceso denegado. Solo usuarios premium pueden acceder a esta ruta.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Acceso denegado. Solo usuarios premium pueden acceder a esta ruta."
         '400':
-          description: Campos incompletos, datos erróneos, caracteres inválidos o claves duplicadas.
+          description: Error en la solicitud, como problemas con la carga del archivo o datos inválidos.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Error en Multer: El archivo no es válido"
         '500':
           description: Error interno del servidor.
           content:
@@ -180,24 +195,32 @@ paths:
                   error:
                     type: string
                     example: "Error interno del servidor."
-
-  /api/products/{pid}:
     delete:
       tags:
         - productos
       summary: Elimina un producto por su ID.
-      description: Elimina un producto de la base de datos dado su ID. Retorna un mensaje confirmando la eliminación o un mensaje de error si el producto no es encontrado.
+      description: Elimina un producto del sistema. Requiere autenticación y privilegios de administrador o propietario del producto.
       parameters:
-        - name: pid
-          in: path
+        - in: path
+          name: pid
           required: true
-          description: ID único del producto a eliminar.
           schema:
             type: string
-            example: "60f73f1c8d2a8b6f1c9c5d7a"
+          description: ID del producto que se desea eliminar.
+      requestBody:
+        description: Información adicional sobre el administrador que solicita la eliminación (opcional).
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                admin:
+                  type: boolean
+                  description: Indica si el usuario es un administrador que solicita la eliminación del producto.
+                  example: true
       responses:
         '200':
-          description: Mensaje confirmando la eliminación del producto.
+          description: El producto ha sido eliminado exitosamente.
           content:
             application/json:
               schema:
@@ -205,9 +228,29 @@ paths:
                 properties:
                   message:
                     type: string
-                    example: "Se eliminó el producto con Id: 60f73f1c8d2a8b6f1c9c5d7a"
+                    example: "Se eliminó el producto con Id: 123456789"
+        '401':
+          description: No estás logueado o no tienes permisos para realizar esta acción.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "No estás logueado"
+        '403':
+          description: Acceso denegado. Solo los administradores o propietarios pueden eliminar el producto.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Acceso denegado, debes ser admin o propietario del producto"
         '404':
-          description: El producto no fue encontrado.
+          description: El producto con el ID proporcionado no existe.
           content:
             application/json:
               schema:
@@ -215,7 +258,7 @@ paths:
                 properties:
                   message:
                     type: string
-                    example: "No se encontró ningún producto con Id: 60f73f1c8d2a8b6f1c9c5d7a"
+                    example: "ID de producto no existe"
         '500':
           description: Error interno del servidor.
           content:
@@ -223,10 +266,12 @@ paths:
               schema:
                 type: object
                 properties:
-                  message:
+                  error:
                     type: string
-                    example: "Error interno del servidor. No se pudo eliminar el producto."
+                    example: "Error interno del servidor"
 
+
+    /api/products/{pid}:
     put:
       tags:
         - productos
@@ -257,6 +302,7 @@ paths:
                   example: "Teclado mecánico RGB con switches mecánicos."
                 price:
                   type: number
+                  format: float
                   description: Precio del producto.
                   example: 75.50
                 thumbnail:
@@ -264,7 +310,7 @@ paths:
                   description: URL o ruta de la imagen del producto.
                   example: "/images/teclado.jpg"
                 stock:
-                  type: number
+                  type: integer
                   description: Cantidad disponible del producto.
                   example: 150
                 category:
@@ -290,8 +336,18 @@ paths:
                   message:
                     type: string
                     example: "El producto se actualizó con éxito."
-        '404':
-          description: Datos inválidos del producto o error en la actualización. Posibles mensajes de error.
+        '400':
+          description: Error en la solicitud, como datos inválidos o campos no permitidos.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "No se permite modificar los campos id y code."
+        '401':
+          description: No estás logueado o no tienes permisos para realizar esta acción.
           content:
             application/json:
               schema:
@@ -299,7 +355,27 @@ paths:
                 properties:
                   message:
                     type: string
-                    example: "No se permite modificar los campos id y code o No se encontró ningún producto con Id: 60f73f1c8d2a8b6f1c9c5d7a"
+                    example: "Acceso denegado, debes ser admin"
+        '404':
+          description: El producto con el ID proporcionado no existe.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "ID de producto no existe"
+        '409':
+          description: CONFLICT, pj enviar un dato como  "Price" en vez de "price".
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: "Error de actualización: algunos campos no están definidos en el esquema. campo : Price"
         '500':
           description: Error interno del servidor.
           content:
@@ -310,3 +386,19 @@ paths:
                   message:
                     type: string
                     example: "Error interno del servidor. No se pudo actualizar el producto."
+
+
+
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Mensaje de error.
+        error:
+          type: string
+          description: Detalles del error.                  
+    
+ 

@@ -9,6 +9,11 @@ export class usuariosDaoMongoose {
         return toPOJO(usuario);
     }
 
+    async findById(id) {
+        const usuario = await this.usuariosModel.findById(id);
+        return toPOJO(usuario); 
+    }
+
     async findOneUser(datos) {
         const usuario = await this.usuariosModel.find(datos).lean();
 
@@ -28,6 +33,7 @@ export class usuariosDaoMongoose {
     }
 
     async findOneUserMongo(datos) {
+    
         const usuario = await this.usuariosModel.findOne(datos);
 
         return usuario;
@@ -49,9 +55,9 @@ export class usuariosDaoMongoose {
         return update;
     }
 
-    async userPremium(email) {
+    async userPremium(userId) {
         const update = await this.usuariosModel.findOneAndUpdate(
-            { email: email },
+            { _id: userId },
             { rol: 'premium' },
             { new: true }
         );
@@ -59,9 +65,9 @@ export class usuariosDaoMongoose {
         return update;
     }
 
-    async userUsuario(email) {
+    async userUsuario(userId) {
         const update = await this.usuariosModel.findOneAndUpdate(
-            { email: email },
+            { _id: userId },
             { rol: 'usuario' },
             { new: true }
         );

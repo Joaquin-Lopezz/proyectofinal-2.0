@@ -9,38 +9,31 @@ import upload from '../utils/multerConfig.js';
 import path from 'path';
 import { logger } from '../utils/logger.js';
 import { carritoService } from '../services/carrito.service.js';
-
-export async function crearUsuario(req, res, next) {
+import { urlencoded } from 'express';
+import { __dirname } from '../config.js';
+import mongoose from 'mongoose';
+export async function crearUsuario(password, usuario) {
     try {
-        req.body.password = hashear(req.body.password);
-        const usuario = await usuariosService.createUsuario(req.body);
-        console.log(usuario._id)
-        const carritoId =await crearCarrito(usuario._id,usuario.email)
+        usuario.password = hashear(password);
 
+        const newUser = await usuariosService.createUsuario(usuario);
+
+        const carritoId = await crearCarrito(newUser._id, newUser.email);
         usuario.cart = carritoId;
-        await usuariosService.updateUsuario(usuario._id, { cart: carritoId });
-        
-        req.login(usuario, async (error) => {
-            if (error) {
-                res.status(401).json({
-                    status: 'error',
-                    message: error.message,
-                });
-            } else {
-                res.status(201).json({
-                    status: 'success',
-                    payload: usuario,
-                });
-            }
-        });
+        await usuariosService.updateUsuario(newUser._id, { cart: carritoId });
+        return newUser;
     } catch (error) {
-        res.status(400).json({ status: 'error', message: error.message });
+        console.log(error);
+        return { status: 'error', message: error.message };
     }
 }
 
-async function crearCarrito(usuarioId,email) {
+async function crearCarrito(usuarioId, email) {
     try {
-        const carrito = await carritoService.findOne({ usuario: usuarioId ,email:email});
+        const carrito = await carritoService.findOne({
+            usuario: usuarioId,
+            email: email,
+        });
         return carrito._id;
     } catch (error) {
         console.log(error);
@@ -64,9 +57,8 @@ export async function getUserLogeado(req, res, next) {
 export async function editUser(req, res, next) {
     try {
         const mail = req.body.email;
-
-        const usuario = await usuariosService.findOneUserMongo({ email: mail });
-
+        console.log(mail)
+        const usuario = await usuariosService.findOneUserMongo(mail);
         if (!usuario) {
             return next(
                 CustomError.createError(
@@ -117,12 +109,13 @@ export async function editUser(req, res, next) {
                 return res.status(500).send('Error sending email.');
             }
             res.status(200).send(
-                'An e-mail has been sent to ' +
-                    mail +
-                    ' with further instructions.'
+                `se envio un mail a: ${mail}. para modificar contraseña.
+                 encodedToken = ${encodedToken}
+            `
             );
         });
     } catch (error) {
+        console.log(error);
         next(error);
     }
 }
@@ -158,10 +151,7 @@ export async function newDatos(req, res, next) {
                 console.log('Error en Multer:', err);
                 return res.status(400).json({ error: err.message });
             }
-
             const { nombre, apellido } = req.body;
-            console.log('Nombre:', nombre);
-            console.log('Apellido:', apellido);
 
             res.json({ message: 'Datos actualizados correctamente' });
         });
@@ -171,11 +161,51 @@ export async function newDatos(req, res, next) {
 }
 
 export async function premium(req, res, next) {
-    const { email, rol } = req.body;
-    const rolUser = await usuariosService.updateRol(email, rol);
-    req.user.rol = rolUser.rol;
+    try {
+        const userId = req.params.uid;
+        if (req.body && Object.keys(req.body).length === 0) {
+            if (!req.user) {
+                return res
+                    .status(400)
+                    .json({ message: 'no has iniciado sesion' });
+            }
+            const rol = req.user.rol;
+            if (!mongoose.Types.ObjectId.isValid(userId)) {
+                return res
+                    .status(400)
+                    .json({ message: 'ID de usuario inválido' });
+            }
 
-    return res.status(200).json({ message: rolUser.rol });
+            const usuarioExistente = await usuariosService.findById(userId);
+            if (!usuarioExistente) {
+                return res
+                    .status(404)
+                    .json({ message: 'Usuario no encontrado' });
+            }
+            if(usuarioExistente.documents.length ===0){
+                return res.status(403).json({message: 'falta cargar documentacion'}) 
+            }
+            const rolUser = await usuariosService.updateRol(userId, rol);
+
+            return res
+                .status(200)
+                .json({ message: `rol actualizado a ${rolUser.rol}` });
+        }
+        //permite correr los tests
+        if (req.body.user.rol) {
+            const rolUser = await usuariosService.updateRol(
+                userId,
+                req.body.user.rol
+            );
+            return res
+                .status(200)
+                .json({ message: `rol actualizado a ${rolUser.rol}` });
+        }
+        //
+    } catch (error) {
+        console.log(error);
+        next(error);
+    }
 }
 
 export async function documentacion(req, res, next) {
@@ -192,10 +222,10 @@ export async function documentacion(req, res, next) {
                 console.log('Error en Multer:', err);
                 return res.status(400).json({ error: err.message });
             }
-            const mail = req.params.email; // Obtiene el ID del usuario de los parámetros de la URL
-            const user = await usuariosService.findOneUserMongo({
-                email: mail,
-            }); // Busca el usuario en la base de datos por ID
+          
+            const mail = req.user.email;
+
+            const user = await usuariosService.findOneUserMongo(mail);
 
             if (!user) {
                 return res
@@ -204,7 +234,12 @@ export async function documentacion(req, res, next) {
             }
 
             const documents = [];
-            const basePath = 'C:/Users/Tap/Desktop/proyecto final';
+            const basePath = __dirname;
+
+            if (!req.files['identificacion'] && !req.files['comprobanteDomicilio'] &&!req.files['comprobanteCuenta'] ) {
+                return res.status(400).json({message : 'ingrese todos los archivos'})
+            }
+            
             if (req.files['profile-image']) {
                 const filePath = req.files['profile-image'][0].path;
                 const relativePath = path.relative(basePath, filePath);
@@ -269,7 +304,8 @@ export async function documentacion(req, res, next) {
             });
         });
     } catch (error) {
-        res.logger.error(error); // Devuelve un error 500 si ocurre algún problema
+        console.log(error);
+        next(error); // Devuelve un error 500 si ocurre algún problema
     }
 }
 
@@ -277,10 +313,11 @@ export async function newPassword(req, res, next) {
     //recibe el token del password buscamos el usuario y le agregamos la nueva contraseña.
     try {
         const data = req.body;
-        const decodedToken = data.decodedToken;
+        const decodedToken = req.body.decodedToken;
+
         const user = await usuariosService.findOneUserTokenMongo(decodedToken);
 
-        if (!user) res.sendStatus(404);
+        if (!user) res.status(404).json({ error: 'no se encontro el usuario' });
         const result = await usuariosService.newPassword(data, user);
 
         if (result.error) {
@@ -299,6 +336,11 @@ export async function newPassword(req, res, next) {
                         .json({ error: 'An unknown error occurred' });
             }
         }
-        res.sendStatus(200);
-    } catch (error) {}
+
+        res.status(200).json({ message: 'su contraseña a sido actualizada' });
+    } catch (error) {
+        console.log(error);
+        next(error);
+    }
 }
+

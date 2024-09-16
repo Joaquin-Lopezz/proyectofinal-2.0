@@ -1,0 +1,89 @@
+openapi: 3.0.0
+info:
+  title: iniciar Sesion para hacer las pruebas en la documentacion
+  description: API para gestionar de sesiones, solo incluye solo el inicio de sesion
+  version: 1.0.0
+
+
+  /api/sesiones/login:
+  post:
+    tags:
+      - sesiones
+    summary: Inicia sesión para un usuario.
+    description: Realiza la autenticación del usuario y retorna su información si el login es exitoso.
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              email:
+                type: string
+                description: El correo del usuario.
+                example: "a@a.com"
+              password:
+                type: string
+                description: La contraseña del usuario.
+                example: "password123"
+    responses:
+      '201':
+        description: El login fue exitoso y retorna la información del usuario autenticado.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  example: "success"
+                message:
+                  type: string
+                  example: "login success"
+                user:
+                  type: object
+                  properties:
+                    _id:
+                      type: string
+                      example: "66e61be7acf825b090c90c82"
+                    email:
+                      type: string
+                      example: "a@a.com"
+                    nombre:
+                      type: string
+                      example: "a"
+                    apellido:
+                      type: string
+                      example: "a"
+                    rol:
+                      type: string
+                      example: "premium"
+                    status_document:
+                      type: string
+                      nullable: true
+                      example: null
+                    documents:
+                      type: array
+                      items:
+                        type: object
+                      example: []
+                    last_connection:
+                      type: string
+                      format: date-time
+                      example: "2024-09-14T23:27:35.220Z"
+                    cart:
+                      type: string
+                      example: "66e61be7acf825b090c90c85"
+      '401':
+        description: Error en la autenticación, credenciales incorrectas.
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  example: "error"
+                message:
+                  type: string
+                  example: "Email o contraseña incorrectos."

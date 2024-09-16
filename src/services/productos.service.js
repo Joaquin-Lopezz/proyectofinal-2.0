@@ -43,7 +43,7 @@ class ProductoService {
             console.log(error);
         }
     }
-    async eliminarProductoAdmin(admin,id) {
+    async eliminarProductoAdmin(admin, id) {
         if (admin) {
             const producto = await this.productById(id);
             if (producto.owner !== 'admin') {
@@ -52,11 +52,15 @@ class ProductoService {
         }
     }
     async updateOne(id, datos) {
-        return await productosDao.updateOne(id, datos);
+    
+            return await productosDao.updateOne(id, datos);
+
+        
     }
+    
     async compareStock(idCarrito, productosCarritos) {
         let amount = 0;
-         for (const product of productosCarritos.products) {
+        for (const product of productosCarritos.products) {
             const quantityBuyProduct = product.quantity;
             const id = product.idProduct;
             const productoStock = await productosDao.getProductById(id);

@@ -1,531 +1,448 @@
 {
-    "stats": {
-        "suites": 12,
-        "tests": 10,
-        "passes": 10,
-        "pending": 0,
-        "failures": 0,
-        "start": "2024-08-06T16:47:09.591Z",
-        "end": "2024-08-06T16:47:28.694Z",
-        "duration": 19103,
-        "testsRegistered": 10,
-        "passPercent": 100,
-        "pendingPercent": 0,
-        "other": 0,
-        "hasOther": false,
-        "skipped": 0,
-        "hasSkipped": false
-    },
-    "results": [
+  "stats": {
+    "suites": 7,
+    "tests": 9,
+    "passes": 0,
+    "pending": 0,
+    "failures": 9,
+    "start": "2024-09-16T04:05:13.821Z",
+    "end": "2024-09-16T04:05:16.801Z",
+    "duration": 2980,
+    "testsRegistered": 9,
+    "passPercent": 0,
+    "pendingPercent": 0,
+    "other": 0,
+    "hasOther": false,
+    "skipped": 0,
+    "hasSkipped": false
+  },
+  "results": [
+    {
+      "uuid": "edde3e69-9d6c-469c-a3ef-29219538d55e",
+      "title": "",
+      "fullFile": "C:\\Users\\Tap\\Desktop\\proyectoFinal2.0\\test\\super.test.js",
+      "file": "\\test\\super.test.js",
+      "beforeHooks": [
         {
-            "uuid": "7baa1fa2-e3b8-4b33-a0b3-481a3aaa6910",
-            "title": "",
-            "fullFile": "",
-            "file": "",
-            "beforeHooks": [
-                {
-                    "title": "\"before all\" hook in \"{root}\"",
-                    "fullTitle": "\"before all\" hook in \"{root}\"",
-                    "timedOut": false,
-                    "duration": 1836,
-                    "state": null,
-                    "speed": null,
-                    "pass": false,
-                    "fail": false,
-                    "pending": false,
-                    "context": null,
-                    "code": "// Conectar a la base de datos\nawait mongoose.connect(MONGODB_CNX_STR);",
-                    "err": {},
-                    "uuid": "59d69f48-42b8-4615-a612-a48b5b0bf0a4",
-                    "parentUUID": "7baa1fa2-e3b8-4b33-a0b3-481a3aaa6910",
-                    "isHook": true,
-                    "skipped": false
-                }
-            ],
-            "afterHooks": [
-                {
-                    "title": "\"after all\" hook in \"{root}\"",
-                    "fullTitle": "\"after all\" hook in \"{root}\"",
-                    "timedOut": false,
-                    "duration": 7,
-                    "state": null,
-                    "speed": null,
-                    "pass": false,
-                    "fail": false,
-                    "pending": false,
-                    "context": null,
-                    "code": "// Desconectar de la base de datos\nawait mongoose.disconnect();",
-                    "err": {},
-                    "uuid": "e1a19e48-ea3c-4ff4-8bec-05fe4406a1cb",
-                    "parentUUID": "7baa1fa2-e3b8-4b33-a0b3-481a3aaa6910",
-                    "isHook": true,
-                    "skipped": false
-                },
-                {
-                    "title": "\"after each\" hook in \"{root}\"",
-                    "fullTitle": "\"after each\" hook in \"{root}\"",
-                    "timedOut": false,
-                    "duration": 906,
-                    "state": null,
-                    "speed": null,
-                    "pass": false,
-                    "fail": false,
-                    "pending": false,
-                    "context": null,
-                    "code": "this.timeout(10000);\n// Limpiar colecciones después de cada prueba\nconst collections = await mongoose.connection.db\n    .listCollections()\n    .toArray();\nawait mongoose.connection.db.collection('productos').deleteMany({});\nawait mongoose.connection.db.collection('carritos').deleteMany({});\nawait mongoose.connection.db.collection('sessions').deleteMany({});\nawait mongoose.connection.db.collection('usuarios').deleteMany({});",
-                    "err": {},
-                    "uuid": "c9f2833e-13f7-497e-9dd1-6b7b55e0d784",
-                    "parentUUID": "7baa1fa2-e3b8-4b33-a0b3-481a3aaa6910",
-                    "isHook": true,
-                    "skipped": false
-                }
-            ],
-            "tests": [],
-            "suites": [
-                {
-                    "uuid": "bc76521c-14c0-43c7-b608-13f9adaa2783",
-                    "title": "Testing productos:",
-                    "fullFile": "C:\\Users\\Tap\\Desktop\\proyecto final\\test\\super.test.js",
-                    "file": "\\test\\super.test.js",
-                    "beforeHooks": [],
-                    "afterHooks": [],
-                    "tests": [],
-                    "suites": [
-                        {
-                            "uuid": "b5b214e5-9811-4b72-9517-6eda77d85765",
-                            "title": "Agregar un producto:",
-                            "fullFile": "C:\\Users\\Tap\\Desktop\\proyecto final\\test\\super.test.js",
-                            "file": "\\test\\super.test.js",
-                            "beforeHooks": [],
-                            "afterHooks": [],
-                            "tests": [
-                                {
-                                    "title": "debería agregar un producto correctamente",
-                                    "fullTitle": "Testing productos: Agregar un producto: debería agregar un producto correctamente",
-                                    "timedOut": false,
-                                    "duration": 472,
-                                    "state": "passed",
-                                    "speed": "slow",
-                                    "pass": true,
-                                    "fail": false,
-                                    "pending": false,
-                                    "context": null,
-                                    "code": "const producto = {\n    title: 'Casa',\n    description: 'Descripción de la casa',\n    price: 4241,\n    thumbnail: 'url-de-imagen',\n    code: `unique-code-${Date.now()}`,\n    stock: 10,\n    category: 'Inmuebles',\n    status: true,\n    owner: 'user@example.com',\n};\nconst { statusCode, body } = await requester.post('/api/products').send(producto);\nexpect(statusCode).to.equal(200);\nexpect(body).to.have.property('_id');\nexpect(body).to.have.property('title', 'Casa');\n// Validaciones adicionales de los campos",
-                                    "err": {},
-                                    "uuid": "2e9b8f0e-a38d-4dd9-b560-cde5e9ed63bd",
-                                    "parentUUID": "b5b214e5-9811-4b72-9517-6eda77d85765",
-                                    "isHook": false,
-                                    "skipped": false
-                                }
-                            ],
-                            "suites": [],
-                            "passes": ["2e9b8f0e-a38d-4dd9-b560-cde5e9ed63bd"],
-                            "failures": [],
-                            "pending": [],
-                            "skipped": [],
-                            "duration": 472,
-                            "root": false,
-                            "rootEmpty": false,
-                            "_timeout": 2000
-                        },
-                        {
-                            "uuid": "ee3bb055-0b27-4c62-aa84-4178a90d1775",
-                            "title": "Obtener productos:",
-                            "fullFile": "C:\\Users\\Tap\\Desktop\\proyecto final\\test\\super.test.js",
-                            "file": "\\test\\super.test.js",
-                            "beforeHooks": [],
-                            "afterHooks": [],
-                            "tests": [
-                                {
-                                    "title": "debería obtener una lista de productos",
-                                    "fullTitle": "Testing productos: Obtener productos: debería obtener una lista de productos",
-                                    "timedOut": false,
-                                    "duration": 186,
-                                    "state": "passed",
-                                    "speed": "slow",
-                                    "pass": true,
-                                    "fail": false,
-                                    "pending": false,
-                                    "context": null,
-                                    "code": "const { statusCode, body } = await requester.get('/api/products');\nexpect(statusCode).to.equal(200);\nexpect(body).to.be.an('array');\nbody.forEach(producto => {\n    expect(producto).to.have.property('_id');\n    expect(producto).to.have.property('title');\n    // Validaciones adicionales de los campos\n});",
-                                    "err": {},
-                                    "uuid": "ef0892d7-f7bd-4ec7-88a6-74b3c25e5a63",
-                                    "parentUUID": "ee3bb055-0b27-4c62-aa84-4178a90d1775",
-                                    "isHook": false,
-                                    "skipped": false
-                                }
-                            ],
-                            "suites": [],
-                            "passes": ["ef0892d7-f7bd-4ec7-88a6-74b3c25e5a63"],
-                            "failures": [],
-                            "pending": [],
-                            "skipped": [],
-                            "duration": 186,
-                            "root": false,
-                            "rootEmpty": false,
-                            "_timeout": 2000
-                        },
-                        {
-                            "uuid": "d8916306-10d3-44c0-be87-c9c3150fc657",
-                            "title": "Eliminar un producto:",
-                            "fullFile": "C:\\Users\\Tap\\Desktop\\proyecto final\\test\\super.test.js",
-                            "file": "\\test\\super.test.js",
-                            "beforeHooks": [],
-                            "afterHooks": [],
-                            "tests": [
-                                {
-                                    "title": "debería eliminar un producto correctamente",
-                                    "fullTitle": "Testing productos: Eliminar un producto: debería eliminar un producto correctamente",
-                                    "timedOut": false,
-                                    "duration": 622,
-                                    "state": "passed",
-                                    "speed": "slow",
-                                    "pass": true,
-                                    "fail": false,
-                                    "pending": false,
-                                    "context": null,
-                                    "code": "const producto = {\n    title: 'Auto',\n    description: 'Descripción del auto',\n    price: 15000,\n    thumbnail: 'url-de-imagen',\n    code: `unique-code-${Date.now()}`,\n    stock: 5,\n    category: 'Vehículos',\n    status: true,\n    owner: 'user@example.com',\n};\nconst { body: productoAgregado } = await requester.post('/api/products').send(producto);\nconst { _id } = productoAgregado;\nconst { statusCode, body } = await requester.delete(`/api/products/${_id}`);\nexpect(statusCode).to.equal(200);\nexpect(body).to.have.property('message').that.includes('Se eliminó el producto');",
-                                    "err": {},
-                                    "uuid": "096d8d2b-1ee8-47c8-9bc2-54d1eef4d590",
-                                    "parentUUID": "d8916306-10d3-44c0-be87-c9c3150fc657",
-                                    "isHook": false,
-                                    "skipped": false
-                                }
-                            ],
-                            "suites": [],
-                            "passes": ["096d8d2b-1ee8-47c8-9bc2-54d1eef4d590"],
-                            "failures": [],
-                            "pending": [],
-                            "skipped": [],
-                            "duration": 622,
-                            "root": false,
-                            "rootEmpty": false,
-                            "_timeout": 2000
-                        }
-                    ],
-                    "passes": [],
-                    "failures": [],
-                    "pending": [],
-                    "skipped": [],
-                    "duration": 0,
-                    "root": false,
-                    "rootEmpty": false,
-                    "_timeout": 2000
-                },
-                {
-                    "uuid": "534b849f-d1db-4b0c-ae21-a2b72b165046",
-                    "title": "testing carritos:",
-                    "fullFile": "C:\\Users\\Tap\\Desktop\\proyecto final\\test\\super.test.js",
-                    "file": "\\test\\super.test.js",
-                    "beforeHooks": [],
-                    "afterHooks": [],
-                    "tests": [],
-                    "suites": [
-                        {
-                            "uuid": "14cae39e-ebad-44cb-9a34-932cbdcc675e",
-                            "title": "Crear un producto:",
-                            "fullFile": "C:\\Users\\Tap\\Desktop\\proyecto final\\test\\super.test.js",
-                            "file": "\\test\\super.test.js",
-                            "beforeHooks": [],
-                            "afterHooks": [],
-                            "tests": [
-                                {
-                                    "title": "crear carrito",
-                                    "fullTitle": "testing carritos: Crear un producto: crear carrito",
-                                    "timedOut": false,
-                                    "duration": 367,
-                                    "state": "passed",
-                                    "speed": "slow",
-                                    "pass": true,
-                                    "fail": false,
-                                    "pending": false,
-                                    "context": null,
-                                    "code": "const { statusCode, ok, body } = await requester.post(\n    '/api/carts/:userId'\n);\nexpect(statusCode).to.equal(200);\nexpect(ok).to.be.true;\nexpect(body).to.be.an('object'); // Espera un objeto en lugar de un array\nexpect(body).to.have.property('carrito');\nexpect(body.carrito).to.be.an('object'); // Asegúrate de que 'carrito' sea un objeto",
-                                    "err": {},
-                                    "uuid": "9d5a04b7-2230-48b4-b487-1b894fb21a78",
-                                    "parentUUID": "14cae39e-ebad-44cb-9a34-932cbdcc675e",
-                                    "isHook": false,
-                                    "skipped": false
-                                }
-                            ],
-                            "suites": [],
-                            "passes": ["9d5a04b7-2230-48b4-b487-1b894fb21a78"],
-                            "failures": [],
-                            "pending": [],
-                            "skipped": [],
-                            "duration": 367,
-                            "root": false,
-                            "rootEmpty": false,
-                            "_timeout": 2000
-                        },
-                        {
-                            "uuid": "47cd9194-1452-47c0-861e-7c6a83c03233",
-                            "title": "Agregar un producto al carrito:",
-                            "fullFile": "C:\\Users\\Tap\\Desktop\\proyecto final\\test\\super.test.js",
-                            "file": "\\test\\super.test.js",
-                            "beforeHooks": [],
-                            "afterHooks": [],
-                            "tests": [
-                                {
-                                    "title": "debería agregar un producto al carrito correctamente",
-                                    "fullTitle": "testing carritos: Agregar un producto al carrito: debería agregar un producto al carrito correctamente",
-                                    "timedOut": false,
-                                    "duration": 730,
-                                    "state": "passed",
-                                    "speed": "slow",
-                                    "pass": true,
-                                    "fail": false,
-                                    "pending": false,
-                                    "context": null,
-                                    "code": "// Primero, crea un carrito para agregar productos\nconst carritoResponse = await requester.post('/api/carts/1234'); \n      \nconst carritoId = carritoResponse.body.carrito._id;\n    \n// Luego, agrega un producto al carrito\nconst producto = {\n    producto :{\n        _id: 'ofdskafok34',\n        title: 'casa',\n        description: 'adsfads',\n        price: 4241,\n        thumbnail: 'dsa234',\n        code: `unique-code-${Date.now()}`,\n        stock: 3241,\n        category: 'dsfa',\n        status: true,\n        owner: 'joaquin.ariel.lopez.98@gmail.com',\n    }\n}\n \nconst { statusCode, ok, body } = await requester\n    .post(`/api/carts/addProduct/${carritoId}`)\n    .send(producto);\nexpect(statusCode).to.equal(200);\nexpect(ok).to.be.true;\nexpect(body).to.be.an('object');\nexpect(body).to.have.property('carrito');\nexpect(body.carrito).to.be.an('object'); // O ajusta según la estructura que devuelves",
-                                    "err": {},
-                                    "uuid": "a71867d9-c5b3-4845-ba89-8302812eb64a",
-                                    "parentUUID": "47cd9194-1452-47c0-861e-7c6a83c03233",
-                                    "isHook": false,
-                                    "skipped": false
-                                }
-                            ],
-                            "suites": [],
-                            "passes": ["a71867d9-c5b3-4845-ba89-8302812eb64a"],
-                            "failures": [],
-                            "pending": [],
-                            "skipped": [],
-                            "duration": 730,
-                            "root": false,
-                            "rootEmpty": false,
-                            "_timeout": 2000
-                        },
-                        {
-                            "uuid": "187318e5-a34c-4b26-aa05-42c2b57ebe9a",
-                            "title": "Eliminar un producto del carrito:",
-                            "fullFile": "C:\\Users\\Tap\\Desktop\\proyecto final\\test\\super.test.js",
-                            "file": "\\test\\super.test.js",
-                            "beforeHooks": [],
-                            "afterHooks": [],
-                            "tests": [
-                                {
-                                    "title": "debería eliminar un producto del carrito correctamente",
-                                    "fullTitle": "testing carritos: Eliminar un producto del carrito: debería eliminar un producto del carrito correctamente",
-                                    "timedOut": false,
-                                    "duration": 1243,
-                                    "state": "passed",
-                                    "speed": "slow",
-                                    "pass": true,
-                                    "fail": false,
-                                    "pending": false,
-                                    "context": null,
-                                    "code": "// Primero, crea un carrito para agregar productos\nconst carritoResponse = await requester.post('/api/carts/1234');\nconst carritoId = carritoResponse.body.carrito._id;\n// Luego, agrega un producto al carrito\nconst producto = {\n    producto: {\n        _id: 'ofdskafok34',\n        title: 'casa',\n        description: 'adsfads',\n        price: 4241,\n        thumbnail: 'dsa234',\n        code: `unique-code-${Date.now()}`,\n        stock: 3241,\n        category: 'dsfa',\n        status: true,\n        owner: 'joaquin.ariel.lopez.98@gmail.com',\n    }\n};\nawait requester\n    .post(`/api/carts/addProduct/${carritoId}`)\n    .send(producto);\n// Luego, elimina el producto agregado\nconst { statusCode, ok, body } = await requester.delete(`/api/carts/${carritoId}/ofdskafok34`);\nexpect(statusCode).to.equal(200);\nexpect(ok).to.be.true;\nexpect(body).to.be.an('object'); // Ajusta según la estructura que devuelves\nexpect(body).to.have.property('_id');",
-                                    "err": {},
-                                    "uuid": "499910df-4e2b-49eb-9ad5-ffd39f2718bc",
-                                    "parentUUID": "187318e5-a34c-4b26-aa05-42c2b57ebe9a",
-                                    "isHook": false,
-                                    "skipped": false
-                                }
-                            ],
-                            "suites": [],
-                            "passes": ["499910df-4e2b-49eb-9ad5-ffd39f2718bc"],
-                            "failures": [],
-                            "pending": [],
-                            "skipped": [],
-                            "duration": 1243,
-                            "root": false,
-                            "rootEmpty": false,
-                            "_timeout": 2000
-                        }
-                    ],
-                    "passes": [],
-                    "failures": [],
-                    "pending": [],
-                    "skipped": [],
-                    "duration": 0,
-                    "root": false,
-                    "rootEmpty": false,
-                    "_timeout": 2000
-                },
-                {
-                    "uuid": "5ab99b80-f48e-4436-af45-86e656613962",
-                    "title": "Testing sesiones:",
-                    "fullFile": "C:\\Users\\Tap\\Desktop\\proyecto final\\test\\super.test.js",
-                    "file": "\\test\\super.test.js",
-                    "beforeHooks": [],
-                    "afterHooks": [],
-                    "tests": [],
-                    "suites": [
-                        {
-                            "uuid": "33712d59-be9d-4ed0-879d-a3a6b926840b",
-                            "title": "Iniciar sesión:",
-                            "fullFile": "C:\\Users\\Tap\\Desktop\\proyecto final\\test\\super.test.js",
-                            "file": "\\test\\super.test.js",
-                            "beforeHooks": [],
-                            "afterHooks": [],
-                            "tests": [
-                                {
-                                    "title": "debería iniciar sesión correctamente",
-                                    "fullTitle": "Testing sesiones: Iniciar sesión: debería iniciar sesión correctamente",
-                                    "timedOut": false,
-                                    "duration": 1675,
-                                    "state": "passed",
-                                    "speed": "slow",
-                                    "pass": true,
-                                    "fail": false,
-                                    "pending": false,
-                                    "context": null,
-                                    "code": "const datos = {\n    nombre: 'x',\n    apellido: 'x',\n    email: 'x@x.com',\n    password: '1234',\n};\nawait requester.post('/api/usuarios').send(datos);\nconst { statusCode, text } = await requester\n    .post('/api/sessions')\n    .send({ email: 'x@x.com', password: '1234' });\nconst body = JSON.parse(text);\nexpect(statusCode).to.equal(201);\nexpect(body).to.have.property('message', 'login success');",
-                                    "err": {},
-                                    "uuid": "ece8ddc5-cca8-4f7d-8ee4-cbdb59dd9227",
-                                    "parentUUID": "33712d59-be9d-4ed0-879d-a3a6b926840b",
-                                    "isHook": false,
-                                    "skipped": false
-                                },
-                                {
-                                    "title": "debería fallar con credenciales incorrectas",
-                                    "fullTitle": "Testing sesiones: Iniciar sesión: debería fallar con credenciales incorrectas",
-                                    "timedOut": false,
-                                    "duration": 8,
-                                    "state": "passed",
-                                    "speed": "fast",
-                                    "pass": true,
-                                    "fail": false,
-                                    "pending": false,
-                                    "context": null,
-                                    "code": "const credentials = {\n    username: 'usuario',\n    password: 'password',\n};\nconst { statusCode, body } = await requester\n    .post('/api/sessions')\n    .send(credentials);\nexpect(statusCode).to.equal(401);\nexpect(body).to.have.property('status', 'error');\nexpect(body).to.have.property('message');",
-                                    "err": {},
-                                    "uuid": "8a4637b3-ef92-4ea1-b84a-bbc6c01df062",
-                                    "parentUUID": "33712d59-be9d-4ed0-879d-a3a6b926840b",
-                                    "isHook": false,
-                                    "skipped": false
-                                }
-                            ],
-                            "suites": [],
-                            "passes": [
-                                "ece8ddc5-cca8-4f7d-8ee4-cbdb59dd9227",
-                                "8a4637b3-ef92-4ea1-b84a-bbc6c01df062"
-                            ],
-                            "failures": [],
-                            "pending": [],
-                            "skipped": [],
-                            "duration": 1683,
-                            "root": false,
-                            "rootEmpty": false,
-                            "_timeout": 2000
-                        },
-                        {
-                            "uuid": "ed67b615-dc8c-4b13-bae1-c4801fefe0a9",
-                            "title": "Obtener sesión actual:",
-                            "fullFile": "C:\\Users\\Tap\\Desktop\\proyecto final\\test\\super.test.js",
-                            "file": "\\test\\super.test.js",
-                            "beforeHooks": [],
-                            "afterHooks": [],
-                            "tests": [
-                                {
-                                    "title": "debería obtener la sesión actual",
-                                    "fullTitle": "Testing sesiones: Obtener sesión actual: debería obtener la sesión actual",
-                                    "timedOut": false,
-                                    "duration": 2619,
-                                    "state": "passed",
-                                    "speed": "slow",
-                                    "pass": true,
-                                    "fail": false,
-                                    "pending": false,
-                                    "context": null,
-                                    "code": "const datos = {\n    nombre: 'x',\n    apellido: 'x',\n    email: 'x@x.com',\n    password: '1234',\n};\n// Registrar el usuario\nawait requester.post('/api/usuarios').send(datos);\nconst loginResponse = await requester\n    .post('/api/sessions')\n    .send({ email: 'x@x.com', password: '1234' });\nconst cookies = loginResponse.headers['set-cookie'];\nconst response = await requester\n    .get('/api/usuarios/current')\n    .set('Cookie', cookies); \nconst { statusCode, body } = response;\nexpect(statusCode).to.equal(200); \nexpect(body).to.have.property('payload');",
-                                    "err": {},
-                                    "uuid": "a2407d28-28ca-427c-ac40-0726887c26f1",
-                                    "parentUUID": "ed67b615-dc8c-4b13-bae1-c4801fefe0a9",
-                                    "isHook": false,
-                                    "skipped": false
-                                }
-                            ],
-                            "suites": [],
-                            "passes": ["a2407d28-28ca-427c-ac40-0726887c26f1"],
-                            "failures": [],
-                            "pending": [],
-                            "skipped": [],
-                            "duration": 2619,
-                            "root": false,
-                            "rootEmpty": false,
-                            "_timeout": 5000
-                        },
-                        {
-                            "uuid": "6b115240-ce94-4b3a-bc24-eab589a9b677",
-                            "title": "Cerrar sesión:",
-                            "fullFile": "C:\\Users\\Tap\\Desktop\\proyecto final\\test\\super.test.js",
-                            "file": "\\test\\super.test.js",
-                            "beforeHooks": [],
-                            "afterHooks": [],
-                            "tests": [
-                                {
-                                    "title": "debería cerrar sesión correctamente",
-                                    "fullTitle": "Testing sesiones: Cerrar sesión: debería cerrar sesión correctamente",
-                                    "timedOut": false,
-                                    "duration": 185,
-                                    "state": "passed",
-                                    "speed": "slow",
-                                    "pass": true,
-                                    "fail": false,
-                                    "pending": false,
-                                    "context": null,
-                                    "code": "const credentials = {\n    username: 'testuser',\n    password: 'testpassword'\n};\nawait requester.post('/api/sessions').send(credentials);\nconst { statusCode, body } = await requester.delete('/api/sessions/current');\nexpect(statusCode).to.equal(200);\nexpect(body).to.have.property('status', 'success');\nexpect(body).to.have.property('message', 'logout OK');",
-                                    "err": {},
-                                    "uuid": "695d780c-8a35-4bad-9741-1aac9651b74f",
-                                    "parentUUID": "6b115240-ce94-4b3a-bc24-eab589a9b677",
-                                    "isHook": false,
-                                    "skipped": false
-                                }
-                            ],
-                            "suites": [],
-                            "passes": ["695d780c-8a35-4bad-9741-1aac9651b74f"],
-                            "failures": [],
-                            "pending": [],
-                            "skipped": [],
-                            "duration": 185,
-                            "root": false,
-                            "rootEmpty": false,
-                            "_timeout": 2000
-                        }
-                    ],
-                    "passes": [],
-                    "failures": [],
-                    "pending": [],
-                    "skipped": [],
-                    "duration": 0,
-                    "root": false,
-                    "rootEmpty": false,
-                    "_timeout": 2000
-                }
-            ],
-            "passes": [],
-            "failures": [],
-            "pending": [],
-            "skipped": [],
-            "duration": 0,
-            "root": true,
-            "rootEmpty": true,
-            "_timeout": 2000
+          "title": "\"before all\" hook in \"{root}\"",
+          "fullTitle": "\"before all\" hook in \"{root}\"",
+          "timedOut": false,
+          "duration": 1845,
+          "state": null,
+          "speed": null,
+          "pass": false,
+          "fail": false,
+          "pending": false,
+          "context": null,
+          "code": "this.timeout(10000);\nmongoose\n    .connect(MONGODB_CNX_STR)\n    .then(() => done())\n    .catch(done);",
+          "err": {},
+          "uuid": "d17f5f81-d9b4-4fb9-8130-0bede603a5fa",
+          "parentUUID": "edde3e69-9d6c-469c-a3ef-29219538d55e",
+          "isHook": true,
+          "skipped": false
         }
-    ],
-    "meta": {
-        "mocha": {
-            "version": "10.7.0"
-        },
-        "mochawesome": {
-            "options": {
-                "quiet": false,
-                "reportFilename": "index",
-                "saveHtml": true,
-                "saveJson": true,
-                "consoleReporter": "spec",
-                "useInlineDiffs": false,
-                "code": true
-            },
-            "version": "7.1.3"
-        },
-        "marge": {
-            "options": {
-                "reportDir": "reports",
-                "reportFilename": "index"
-            },
-            "version": "6.2.0"
+      ],
+      "afterHooks": [
+        {
+          "title": "\"after all\" hook in \"{root}\"",
+          "fullTitle": "\"after all\" hook in \"{root}\"",
+          "timedOut": false,
+          "duration": 1103,
+          "state": null,
+          "speed": null,
+          "pass": false,
+          "fail": false,
+          "pending": false,
+          "context": null,
+          "code": "this.timeout(20000);\nPromise.all([\n    mongoose.connection.db.collection('productos').deleteMany({}),\n    mongoose.connection.db.collection('carritos').deleteMany({}),\n    mongoose.connection.db.collection('sessions').deleteMany({}),\n    mongoose.connection.db.collection('usuarios').deleteMany({}),\n])\n    .then(() => mongoose.disconnect())\n    .then(() => done())\n    .catch(done);",
+          "err": {},
+          "uuid": "1a8807a7-5cd8-4952-8a9e-23ee6807e35e",
+          "parentUUID": "edde3e69-9d6c-469c-a3ef-29219538d55e",
+          "isHook": true,
+          "skipped": false
         }
+      ],
+      "tests": [],
+      "suites": [
+        {
+          "uuid": "ad3d9531-a466-405c-81c8-fd31760b49c1",
+          "title": "Testing sesiones:",
+          "fullFile": "C:\\Users\\Tap\\Desktop\\proyectoFinal2.0\\test\\super.test.js",
+          "file": "\\test\\super.test.js",
+          "beforeHooks": [],
+          "afterHooks": [],
+          "tests": [],
+          "suites": [
+            {
+              "uuid": "d8f1fd92-87c4-428a-838c-008d12a3503f",
+              "title": "registrarse",
+              "fullFile": "C:\\Users\\Tap\\Desktop\\proyectoFinal2.0\\test\\super.test.js",
+              "file": "\\test\\super.test.js",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "registra usuario",
+                  "fullTitle": "Testing sesiones: registrarse registra usuario",
+                  "timedOut": false,
+                  "duration": 7,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "const datos = {\n    nombre: 'x',\n    apellido: 'x',\n    email: 'x@x.com',\n    password: '1234',\n    rol: 'premium',\n};\nconst res = await requester\n    .post('/api/sessions/register')\n    .send(datos);\nusuarioId = res.body.user._id;\nexpect(res.status).to.equal(201);\nexpect(res.body).to.have.property('status').that.equals('success');\nexpect(res.body)\n    .to.have.property('message')\n    .that.equals('Registro exitoso');\nexpect(res.body.user)\n    .to.have.property('email')\n    .that.equals('x@x.com');",
+                  "err": {
+                    "message": "AggregateError [ECONNREFUSED]: ",
+                    "estack": "AggregateError [ECONNREFUSED]: \n    at internalConnectMultiple (node:net:1117:18)\n    at afterConnectMultiple (node:net:1684:7)",
+                    "diff": null
+                  },
+                  "uuid": "7e9f1c19-e6f4-4582-84e4-dd04c347e23e",
+                  "parentUUID": "d8f1fd92-87c4-428a-838c-008d12a3503f",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [],
+              "failures": [
+                "7e9f1c19-e6f4-4582-84e4-dd04c347e23e"
+              ],
+              "pending": [],
+              "skipped": [],
+              "duration": 7,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            },
+            {
+              "uuid": "c7f04c2e-3f07-4bb2-81dc-72cb404a3e84",
+              "title": "Iniciar sesión:",
+              "fullFile": "C:\\Users\\Tap\\Desktop\\proyectoFinal2.0\\test\\super.test.js",
+              "file": "\\test\\super.test.js",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "debería fallar con credenciales incorrectas",
+                  "fullTitle": "Testing sesiones: Iniciar sesión: debería fallar con credenciales incorrectas",
+                  "timedOut": false,
+                  "duration": 1,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "const credentials = {\n    username: 'usuario',\n    password: 'password',\n};\nconst { statusCode, body } = await requester\n    .post('/api/sessions')\n    .send(credentials);\nexpect(statusCode).to.equal(404);",
+                  "err": {
+                    "message": "AggregateError [ECONNREFUSED]: ",
+                    "estack": "AggregateError [ECONNREFUSED]: \n    at internalConnectMultiple (node:net:1117:18)\n    at afterConnectMultiple (node:net:1684:7)",
+                    "diff": null
+                  },
+                  "uuid": "3272eb5f-f429-4623-bbf1-46860bba8c2d",
+                  "parentUUID": "c7f04c2e-3f07-4bb2-81dc-72cb404a3e84",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "debería iniciar sesión correctamente",
+                  "fullTitle": "Testing sesiones: Iniciar sesión: debería iniciar sesión correctamente",
+                  "timedOut": false,
+                  "duration": 1,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "const datos = {\n    email: 'x@x.com',\n    password: '1234',\n};\nconst res = await requester.post('/api/sessions/login').send(datos);\ncarritoId = res.body.user.cart;\nexpect(res.status).to.equal(201); // Ajusta el código de estado a 200 si es necesario\nexpect(res.body)\n    .to.have.property('message')\n    .that.equals('login success');",
+                  "err": {
+                    "message": "AggregateError [ECONNREFUSED]: ",
+                    "estack": "AggregateError [ECONNREFUSED]: \n    at internalConnectMultiple (node:net:1117:18)\n    at afterConnectMultiple (node:net:1684:7)",
+                    "diff": null
+                  },
+                  "uuid": "2858f636-f7c2-40a5-9f42-dda14a3417dc",
+                  "parentUUID": "c7f04c2e-3f07-4bb2-81dc-72cb404a3e84",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [],
+              "failures": [
+                "3272eb5f-f429-4623-bbf1-46860bba8c2d",
+                "2858f636-f7c2-40a5-9f42-dda14a3417dc"
+              ],
+              "pending": [],
+              "skipped": [],
+              "duration": 2,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            },
+            {
+              "uuid": "ff19256a-c503-46d0-8248-3b7be12c1f02",
+              "title": "cambio el rol de usuario a premium",
+              "fullFile": "C:\\Users\\Tap\\Desktop\\proyectoFinal2.0\\test\\super.test.js",
+              "file": "\\test\\super.test.js",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "debería cambio el rol de usuario a premium",
+                  "fullTitle": "Testing sesiones: cambio el rol de usuario a premium debería cambio el rol de usuario a premium",
+                  "timedOut": false,
+                  "duration": 2,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "const res = await requester\n    .post(`/api/users/premium/${usuarioId}`)\n    .send({ user: { rol: 'usuario' } });\nexpect(res.status).to.equal(200); // Ajusta el código de estado a 200 si es necesario\nexpect(res.body)\n    .to.have.property('message')\n    .that.equals('rol actualizado a premium');",
+                  "err": {
+                    "message": "AggregateError [ECONNREFUSED]: ",
+                    "estack": "AggregateError [ECONNREFUSED]: \n    at internalConnectMultiple (node:net:1117:18)\n    at afterConnectMultiple (node:net:1684:7)",
+                    "diff": null
+                  },
+                  "uuid": "1d67593c-0547-4843-b023-534bc9df2f53",
+                  "parentUUID": "ff19256a-c503-46d0-8248-3b7be12c1f02",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [],
+              "failures": [
+                "1d67593c-0547-4843-b023-534bc9df2f53"
+              ],
+              "pending": [],
+              "skipped": [],
+              "duration": 2,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            },
+            {
+              "uuid": "081180be-69d1-4c38-ad04-e4ee16561cec",
+              "title": "Testing productos:",
+              "fullFile": "C:\\Users\\Tap\\Desktop\\proyectoFinal2.0\\test\\super.test.js",
+              "file": "\\test\\super.test.js",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "Agregar un producto:",
+                  "fullTitle": "Testing sesiones: Testing productos: Agregar un producto:",
+                  "timedOut": false,
+                  "duration": 1,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "const producto = {\n    title: 'Casa',\n    description: 'Descripción de la casa',\n    price: 4241,\n    thumbnail: 'url-de-imagen',\n    code: `unique-code-${Date.now()}`,\n    stock: 10,\n    category: 'Inmuebles',\n    status: true,\n    owner: 'user@example.com',\n};\nconst req = await requester\n    .post('/api/products')\n    .set('x-test-mode', 'true')\n    .send(producto);\nproductoId = req.body._id; // Mostrar el cuerpo de la respuesta\nexpect(req.statusCode).to.equal(200);\nexpect(req.body).to.have.property('_id');\nexpect(req.body).to.have.property('title', 'Casa');",
+                  "err": {
+                    "message": "AggregateError [ECONNREFUSED]: ",
+                    "estack": "AggregateError [ECONNREFUSED]: \n    at internalConnectMultiple (node:net:1117:18)\n    at afterConnectMultiple (node:net:1684:7)",
+                    "diff": null
+                  },
+                  "uuid": "046df2e6-8ebd-4dbc-bdc9-d06a91120c98",
+                  "parentUUID": "081180be-69d1-4c38-ad04-e4ee16561cec",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "debería obtener una lista de productos",
+                  "fullTitle": "Testing sesiones: Testing productos: debería obtener una lista de productos",
+                  "timedOut": false,
+                  "duration": 1,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "const { statusCode, body } = await requester\n    .get('/api/products')\n    .set('x-test-mode', 'true');\n// Mostrar el cuerpo de la respuesta\nexpect(statusCode).to.equal(200);\nexpect(body).to.be.an('array');\nbody.forEach((producto) => {\n    expect(producto).to.have.property('_id');\n    expect(producto).to.have.property('title');\n});",
+                  "err": {
+                    "message": "AggregateError [ECONNREFUSED]: ",
+                    "estack": "AggregateError [ECONNREFUSED]: \n    at internalConnectMultiple (node:net:1117:18)\n    at afterConnectMultiple (node:net:1684:7)",
+                    "diff": null
+                  },
+                  "uuid": "e3b30cbc-6ffa-4f6f-b458-f698980530ba",
+                  "parentUUID": "081180be-69d1-4c38-ad04-e4ee16561cec",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [],
+              "failures": [
+                "046df2e6-8ebd-4dbc-bdc9-d06a91120c98",
+                "e3b30cbc-6ffa-4f6f-b458-f698980530ba"
+              ],
+              "pending": [],
+              "skipped": [],
+              "duration": 2,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            },
+            {
+              "uuid": "dd0e3b20-3184-4a32-b3bd-f5a4b01eb756",
+              "title": "testing de carrito",
+              "fullFile": "C:\\Users\\Tap\\Desktop\\proyectoFinal2.0\\test\\super.test.js",
+              "file": "\\test\\super.test.js",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "agrega un producto al carrito",
+                  "fullTitle": "Testing sesiones: testing de carrito agrega un producto al carrito",
+                  "timedOut": false,
+                  "duration": 1,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "const req = await requester\n    .post(`/api/carts/${carritoId}/producto/${productoId}`)\n    .set('x-test-mode', 'true');\nexpect(req.statusCode).to.equal(200);\nexpect(req.body).to.have.property('carrito');",
+                  "err": {
+                    "message": "AggregateError [ECONNREFUSED]: ",
+                    "estack": "AggregateError [ECONNREFUSED]: \n    at internalConnectMultiple (node:net:1117:18)\n    at afterConnectMultiple (node:net:1684:7)",
+                    "diff": null
+                  },
+                  "uuid": "c00f6379-b1ca-423a-85a0-14b641946932",
+                  "parentUUID": "dd0e3b20-3184-4a32-b3bd-f5a4b01eb756",
+                  "isHook": false,
+                  "skipped": false
+                },
+                {
+                  "title": "elimina un producto del carrito",
+                  "fullTitle": "Testing sesiones: testing de carrito elimina un producto del carrito",
+                  "timedOut": false,
+                  "duration": 2,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "const req = await requester\n    .delete(`/api/carts/${carritoId}/${productoId}`)\n    .set('x-test-mode', 'true');\nexpect(req.statusCode).to.equal(200);\nexpect(req.body).to.have.property('status');",
+                  "err": {
+                    "message": "AggregateError [ECONNREFUSED]: ",
+                    "estack": "AggregateError [ECONNREFUSED]: \n    at internalConnectMultiple (node:net:1117:18)\n    at afterConnectMultiple (node:net:1684:7)",
+                    "diff": null
+                  },
+                  "uuid": "b5cc8a97-6495-4841-9f0e-920fb87b1cae",
+                  "parentUUID": "dd0e3b20-3184-4a32-b3bd-f5a4b01eb756",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [],
+              "failures": [
+                "c00f6379-b1ca-423a-85a0-14b641946932",
+                "b5cc8a97-6495-4841-9f0e-920fb87b1cae"
+              ],
+              "pending": [],
+              "skipped": [],
+              "duration": 3,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            },
+            {
+              "uuid": "688d3b3e-843b-4691-9963-dd536d8b67df",
+              "title": "Cerrar sesión:",
+              "fullFile": "C:\\Users\\Tap\\Desktop\\proyectoFinal2.0\\test\\super.test.js",
+              "file": "\\test\\super.test.js",
+              "beforeHooks": [],
+              "afterHooks": [],
+              "tests": [
+                {
+                  "title": "debería cerrar sesión correctamente",
+                  "fullTitle": "Testing sesiones: Cerrar sesión: debería cerrar sesión correctamente",
+                  "timedOut": false,
+                  "duration": 2,
+                  "state": "failed",
+                  "speed": null,
+                  "pass": false,
+                  "fail": true,
+                  "pending": false,
+                  "context": null,
+                  "code": "const { statusCode, body } = await requester.delete(\n    '/api/sessions/current'\n);\nexpect(statusCode).to.equal(200);\nexpect(body).to.have.property('status', 'success');\nexpect(body).to.have.property('message', 'logout OK');",
+                  "err": {
+                    "message": "AggregateError [ECONNREFUSED]: ",
+                    "estack": "AggregateError [ECONNREFUSED]: \n    at internalConnectMultiple (node:net:1117:18)\n    at afterConnectMultiple (node:net:1684:7)",
+                    "diff": null
+                  },
+                  "uuid": "b07a240f-7bc3-4b24-b222-dc3bea9c016c",
+                  "parentUUID": "688d3b3e-843b-4691-9963-dd536d8b67df",
+                  "isHook": false,
+                  "skipped": false
+                }
+              ],
+              "suites": [],
+              "passes": [],
+              "failures": [
+                "b07a240f-7bc3-4b24-b222-dc3bea9c016c"
+              ],
+              "pending": [],
+              "skipped": [],
+              "duration": 2,
+              "root": false,
+              "rootEmpty": false,
+              "_timeout": 2000
+            }
+          ],
+          "passes": [],
+          "failures": [],
+          "pending": [],
+          "skipped": [],
+          "duration": 0,
+          "root": false,
+          "rootEmpty": false,
+          "_timeout": 2000
+        }
+      ],
+      "passes": [],
+      "failures": [],
+      "pending": [],
+      "skipped": [],
+      "duration": 0,
+      "root": true,
+      "rootEmpty": true,
+      "_timeout": 2000
     }
+  ],
+  "meta": {
+    "mocha": {
+      "version": "10.7.3"
+    },
+    "mochawesome": {
+      "options": {
+        "quiet": false,
+        "reportFilename": "index",
+        "saveHtml": true,
+        "saveJson": true,
+        "consoleReporter": "spec",
+        "useInlineDiffs": false,
+        "code": true
+      },
+      "version": "7.1.3"
+    },
+    "marge": {
+      "options": {
+        "reportDir": "reports",
+        "reportFilename": "index"
+      },
+      "version": "6.2.0"
+    }
+  }
 }

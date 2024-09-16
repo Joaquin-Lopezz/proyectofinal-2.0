@@ -11,10 +11,9 @@ class UsuariosService {
     async createUsuario(newUser) {
         return await usuariosDao.createUsuario(newUser);
     }
-    async updateUsuario(usuario,carrritoId){
-        return await usuariosDao.updateUsuario(usuario,carrritoId)
-
-    }   
+    async updateUsuario(usuario, carrritoId) {
+        return await usuariosDao.updateUsuario(usuario, carrritoId);
+    }
     async deleteUsers() {
         const dosDiasAtras = new Date();
         dosDiasAtras.setDate(dosDiasAtras.getDate() - 2);
@@ -91,9 +90,12 @@ class UsuariosService {
             throw error;
         }
     }
+    
     async findOneUserMongo(datos) {
         try {
-            const usuarioMongo = await usuariosDao.findOneUserMongo(datos);
+            const usuarioMongo = await usuariosDao.findOneUserMongo({
+                email: datos,
+            });
             return usuarioMongo;
         } catch (error) {
             logger.error(`${error}`);
@@ -107,6 +109,7 @@ class UsuariosService {
                 resetPasswordToken: decodedToken,
                 resetPasswordExpires: { $gt: Date.now() },
             });
+    
             return usuario;
         } catch (error) {
             logger.error(`${error}`);
@@ -117,7 +120,10 @@ class UsuariosService {
     async login(email, password) {
         let datosUsuario;
         try {
-            if (email === 'adminCoder@coder.com' && password === 'adminCod3r123') {
+            if (
+                email === 'adminCoder@coder.com' &&
+                password === 'adminCod3r123'
+            ) {
                 datosUsuario = {
                     email: 'admin',
                     nombre: 'admin',
@@ -153,7 +159,7 @@ class UsuariosService {
                     nombre: usuario['nombre'],
                     apellido: usuario['apellido'],
                     rol: usuario['rol'],
-                    carrito: usuario['cart']
+                    carrito: usuario['cart'],
                 };
             }
             return datosUsuario;
@@ -210,13 +216,15 @@ class UsuariosService {
 
         return data.password1;
     }
-
-    async updateRol(email, rol) {
+    async findById(id) {
+        return await usuariosDao.findById(id);
+    }
+    async updateRol(userId, rol) {
         if (rol === 'usuario') {
-            const usuario = await usuariosDao.userPremium(email);
+            const usuario = await usuariosDao.userPremium(userId);
             return usuario;
         } else {
-            const usuario = await usuariosDao.userUsuario(email);
+            const usuario = await usuariosDao.userUsuario(userId);
             return usuario;
         }
     }
