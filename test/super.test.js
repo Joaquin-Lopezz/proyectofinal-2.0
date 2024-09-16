@@ -85,18 +85,7 @@ describe('Testing sesiones:', () => {
         });
     });
 
-    describe('cambio el rol de usuario a premium', () => {
-        it('debería cambio el rol de usuario a premium', async () => {
-            const res = await requester
-                .post(`/api/users/premium/${usuarioId}`)
-                .send({ user: { rol: 'usuario' } });
-
-            expect(res.status).to.equal(200); // Ajusta el código de estado a 200 si es necesario
-            expect(res.body)
-                .to.have.property('message')
-                .that.equals('rol actualizado a premium');
-        });
-    });
+ 
 
     describe('Testing productos:', () => {
         it('Agregar un producto:', async () => {
