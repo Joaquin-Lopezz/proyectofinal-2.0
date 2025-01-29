@@ -5,18 +5,18 @@ export const MONGODB_CNX_STR =
    'pass';
 export const SESSION_SECRET = 'SecretCoder';
 export const GITHUB_APP_ID = 901083;
-export const GITHUB_CLIENT_ID ='pass'';
-export const GITHUB_CLIENT_SECRET ='pass';
+export const GITHUB_CLIENT_ID = 'Iv23liZ3pXxNP39n0V8m';
+export const GITHUB_CLIENT_SECRET = '33fd4ceadc992c37e5d956e3d4c63f09163c3545';
 export const GITHUB_CALLBACK_URL = 'http://localhost:8080/githubcallback';
 
-//mail send
+//mail sendz
 import nodemailer from 'nodemailer';
 export const transport = nodemailer.createTransport({
     service: 'gmail',
     port: 587,
     auth: {
         user: 'joaquin.ariel.lopez.98@gmail.com',
-        pass: 'pass',
+        pass: 'nmst xewa jbdt iegw',
     },
 });
 
